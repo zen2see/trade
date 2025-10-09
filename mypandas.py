@@ -8,7 +8,7 @@ import timeit
 # MULTIPLE ROW COMMENTS
 """
 
-
+"""
 # MATH
 ## 1+1=2, 1-3=-2, 1*3=6, 1/2=0.5, 2**4=16, 4%2=0, 5%2=1, 2+3*5+5=22, (2+3)*(5+5)=50
 
@@ -26,7 +26,7 @@ name = "Jose Portilla"
 print("Hello my name is {}".format(name))
 number = 12
 print(f"Hi my name is {name} and my number is {number}".format(name, number)) # OR
-print(f"Hi my name is {x} and my number is {y}".format(x=name, y=number))
+print("Hi my name is {} and my number is {}".format(name, number))
 
 # LIST mutable
 ['hi',0,1]
@@ -45,12 +45,12 @@ dict['key2'] # 'seconditem'
 dict.keys() # RETRUNS dict_keys(['key', 'key2])
 # TUPLES like a list but non-mutable
 t = (1,2,3)
-t[0] = 1
+print(t[0])
 
 # SETS = unorderderd colleciton of UNIQUE items
 ## {1,2,3} = {1,1,1,2,2,2,3,3,3} 
 import math
-math.sqrt() # SHIFT+TAB for DOCUMENTATION
+math.sqrt(4) # SHIFT+TAB for DOCUMENTATION
 
 # COMPARISON OPERATORS
 1 < 2, 1 >=3, 1 != 3, 'string' == 'string', 1 == '1'# FALSE (1==2 ) AND NOT (1==1), OR, NOT
@@ -69,7 +69,7 @@ for item in seq:
 # WHILE LOOPS
 i = 1
 while i < 5:
-    print(f"i is currently", {}.format(i))
+    print(f"i is currently", {i})
     i = i + 1
 
 # RANGE
@@ -97,14 +97,14 @@ out = [1, 4, 9, 16]
 def my_func():
     print('hello')
 def my_func2(param='default'):
-    """
-    Docstring goes here!
-    """
-    print(param)
+    # triple quotes
+    #Docstring goes here between triple quotes! 
+    # triple quotes
+my_func(param)
 # python3 my_func() # would print doc info and then the word default    
 def my_func3(argument):
     return argument*5 # returns 25
-x = my_func(5)
+x = my_func3(5)
 print(x) # prints 25
 def times_two(var):
     return var*2
@@ -155,7 +155,7 @@ def source_finder(s):
 source_finder("PRICE:345.324:SOURCE--QUANDL") # returns 'QUANDL'
 #5 Create a () called price_finder that returns True if the word 'price' is in a string.
 def price_finder(s):
-    return 'price' is s.lower()
+    return 'price' == s.lower()
 #6 Create a () called count_price() taht counts the # of times the word 'price' occurs in a str.
 def count_price(s):
     count = 0
@@ -192,22 +192,22 @@ np.array(my_matrix)
 #        [7,8,9]])
 np.arange(0,101,20) # array([0,20,40,60,80,100])
 np.zeros(5) # array([0.,0.,0.,0.,0.])
-np.zeros(2,5) 
+np.zeros((2,5)) 
 # array([0.,0.,0.,0.,0.],
 #        [0.,0.,0.,0.,0.]])
 np.ones(5) # array([1., 1., 1., 1., 1.])
 np.linspace(0,10,11)# array([0.    , 1.11111111, 2.22222222, ... 10.       ]) 21 numbers
-np.exe(5) # array([1.,0.,0.,0.,0.,],
+np.eye(5) # array([1.,0.,0.,0.,0.,],
 #                  [0.,1.,2.,3.,4.,],)
 np.random.rand(1) # Gives a random number between 0 and 1 array([0.11242691])
 np.random.rand(5,2) # Five rows of two random numbers
 np.random.randn # Mean is 0 and variance 1 array([-0.90387279, -0.33609234, 1.54333558, etc.])
 np.random.randint # Returns random integers
-np.random.randint(0,101(2,3)) # array([[ 0.13570505, 0.736018705, 2.01277515], ...])
+np.random.randint(0,101,(2,3)) # array([[ 0.13570505, 0.736018705, 2.01277515], ...])
 np.random.randint(0,101,10) # array([8,30,33,49,66,32,69,14,96,62])
 np.random.seed(42) # seed 42 from hitchhikers guide to the galaxy
 np.random.rand(4) # array([0.3745012, ...])
-arr = np.arrange(0,25) # arr = array([0,1,2,3...24])
+arr = np.arange(0,25) # arr = array([0,1,2,3...24])
 arr.reshape(5,5) # array([0,1,2,3,4],
 #                        [5,6,7,8,9],...
 ranarr = np.random.randint(0,101,10)
@@ -219,7 +219,7 @@ arr.shape # 25
 arr = arr.reshape(5,5) # the numbers in an array of 5 by 5
 
 # INDEXING AND SELECTION
-anarr = np.arrange(0,11) # arr = array([0,1,2,3..1])
+anarr = np.arange(0,11) # arr = array([0,1,2,3..1])
 anarr[8] # 8
 anarr[1:5] # array([0,1,2,3,4]) SAME AS anarr([:5])
 anarr[5:] # array([5,6,7,8,9,10])
@@ -234,7 +234,7 @@ arr_copy = newarr.copy()
 arr_copy[:] = 100 # arr_copy = array([99, 99, 99, 99, 99, 5, 6, 7, 8, 9, 10])
 
 # INDEXING ON 2D ARRAYS
-arr_2d = np.array([5,10,15],[20,25,30],[35,30,45])
+arr_2d = np.array([[5,10,15],[20,25,30],[35,30,45]])
 arr_2d # = array([5,  10, 15],
 #                [20, 25, 30],
 #                 [35, 40, 45])
@@ -249,7 +249,7 @@ arr_2d[:2,1:] # array([10, 15],
 #                      [25, 30]])
 
                       # OPERATORS
-arrop =- np.arrange(0,10) # array([0,1,2,3,4,5,6,7,8,9])
+arrop = np.arange(0,10) # array([0,1,2,3,4,5,6,7,8,9])
 arrop + 5 # array([5,6,7,8,9,10,11,12,13,14])
 arrop - 2 # array([-2,-1,0,1,2,3,4,5,6,7])
 arrop + arrop # array([0,2,4,6,8,10,12,14,16,18]) CAN DO *,-
@@ -258,7 +258,7 @@ np.sin(arrop) # array([0.        , 0.84147098,  0.90929743, ...])
 np.log(arrop) # array([        -ing, 0.        , 0.69314718, ...])
 arrop.sum() # sum all elements in array
 arrop.mean() # arrop.max() arr.var() arr.std()
-arr2d = np.arange(0,25).reshap(5,5) # arr2d.shape (5,5)
+arr2d = np.arange(0,25).reshape(5,5) # arr2d.shape (5,5)
 arr2d # array[0,1,2,3,4],
       #      [5,6,7,8...
 arr2d.sum() # 300
@@ -299,7 +299,7 @@ arr2d.sum(axis=1) # array([10,35,60,85,110]) rows
 # LIST REVIEW - PANAS SERIES
 myindex = ['USA', 'Canada', 'Mexico']
 mydata = [1776,1867,1821]
-myseries = pd.Series(data=mydata)
+myseries = pd.Series(data=myindex)
 print(myseries,'\n') # OR myseries
 # 0    1776
 # 1    1867
@@ -311,7 +311,7 @@ print(myseries2, '\n') # OR myseries2
 # Canada    1821
 # dtype: int64
 print(myseries[0], '\n') # 1776
-myseries['USA'] # 1776
+#print(myseries['USA']) # 1776
 ages = {'Sam': 5, 'Frank': 10, 'Spike': 7}
 pd.Series(ages)
 print(pd.Series(ages), '\n') 
@@ -471,6 +471,7 @@ print(dftips.head())
 # TIMELY CODE STARTS HERE AFTER ADDING TRIPLE QUOTES
 # TIMING CODE WITH TIMEIT - NOTE TRIPLE QUOTES BELOW ARE NEEDED FOR TIMELY CODE TO WORK SO PLACE 3 QUOTES BEFORE THIS LINE
 # TIMELY CODE TO BE EXECUTED ONCE FOR TIMELY
+"""
 pdtimely = '''
 import numpy as np
 import pandas as pd
@@ -483,7 +484,7 @@ def qualitytimely(total_bill,tip):
     else:
         return 'Timely: Cheap'
 '''
-"""
+
 # CODE SNIPPET WHOSE EXECUTION TIME IS TO BE MEASURED BY TIMELY
 stmt_one ='''
 dftips['Tip Quality'] = dftips[['total_bill', 'tip']].apply(lambda dftips: qualitytimely(dftips['total_bill'], dftips['tip']), axis=1)
@@ -491,13 +492,13 @@ dftips['Tip Quality'] = dftips[['total_bill', 'tip']].apply(lambda dftips: quali
 stmt_two = '''
 dftips['Tip Quality'] = np.vectorize(qualitytimely)(dftips['total_bill'], dftips['tip'])
 '''
-timelyone = timeit.timeit(setup=pdtimely,stmt=stmt_one,number=1000)
-timelytwo = timeit.timeit(setup=pdtimely,stmt=stmt_two,number=1000)
-print('\nUsing timely: ',timelyone)
-print('Using timely with vectorize: ',timelytwo)
-""" # TIMELY CODE ENDS HERE
+## timelyone = timeit.timeit(setup=pdtimely,stmt=stmt_one,number=1000)
+## timelytwo = timeit.timeit(setup=pdtimely,stmt=stmt_two,number=1000)
+## print('\nUsing timely: ',timelyone)
+## print('Using timely with vectorize: ',timelytwo)
+# TIMELY CODE ENDS HERE
 
-
+"""
 # USEFUL METHODS - DESCRIBING AND SORTING
 print('\nUSEFUL METHODS - DESCRIBING AND SORTING')
 dfsort = pd.read_csv('tips.csv')
@@ -594,4 +595,4 @@ print(mergedL)
 print('\nRIGHT MERGE\npd.merge(registrations,logins,how=\'right\',on=\'name\')')
 mergedR = pd.merge(left=registrations,right=logins,how='right',on='name')
 print(mergedR)
-
+"""
