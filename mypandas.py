@@ -8,46 +8,52 @@ import timeit
 # MULTIPLE ROW COMMENTS
 """
 
-"""
+
 # MATH
-1+1=2, 1-3=-2, 1*3=6, 1/2=0.5, 2**4=16, 4%2=0, 5%2=1, 2+3*5+5=22, (2+3)*(5+5)=50
+## 1+1=2, 1-3=-2, 1*3=6, 1/2=0.5, 2**4=16, 4%2=0, 5%2=1, 2+3*5+5=22, (2+3)*(5+5)=50
 
 # VARIABLES
-x=1, y=2, x+y=3, z=x+y, # z now = 3
+##x=1, y=2, x+y=3, z=x+y, # z now = 3
 
 # STRINGS
-'single', "double", "I don't care"
+## 'single', "double", "I don't care"
 
 # PRINT
-x=hello print(x)='hello', print("DOUBLE")=DOUBLE, name ="Jose Portilla"
+x = "hello"
+print(x)
+print("DOUBLE")
+name = "Jose Portilla"
 print("Hello my name is {}".format(name))
 number = 12
-print("Hi my name is {} and my number is {}".format(name, number)) OR
-print("Hi my name is {x} and my number is {y}".format(x=name, y=number))
+print(f"Hi my name is {name} and my number is {number}".format(name, number)) # OR
+print(f"Hi my name is {x} and my number is {y}".format(x=name, y=number))
 
-LIST mutable
+# LIST mutable
 ['hi',0,1]
-[1,2,3] = [1, 2 ,3] 
-mylist.append(4) = [1,2,3,4]
+my_list = [1, 2 ,3] 
+my_list.append(4) # [1,2,3,4] 
 my_list = ['a','b','c','d']
-my_list[0] = 'a' my_list[-1] = 'd'
-my_list[0:2] = ['a', 'b'] OR my_list[0:2] or nt_list[:2]
-nested = [1,2['a','b']] nested[2][0] = 'a'
+my_list[0] = 'a'
+my_list[-1] = 'd'
+my_list[0:2] = ['a', 'b'] # OR my_list[0:2] or nt_list[:2]
+nested = [1,2,['a','b']]
+nested[2][0] = 'a'
 
-DICTIONARY
-dict = {'key':10,'key2':'seconditem;}
-d['key2'] = 'seconditem'
-d.keys() # RETRUNS dict_keys(['key', 'key2])
-TUPLES like a list but non-mutable
-t = (1,2,3) t[0] = 1
+# DICTIONARY
+dict = {'key':10,'key2':'seconditem'}
+dict['key2'] # 'seconditem'
+dict.keys() # RETRUNS dict_keys(['key', 'key2])
+# TUPLES like a list but non-mutable
+t = (1,2,3)
+t[0] = 1
 
-SETS = unorderderd colleciton of UNIQUE items
-{1,2,3} = {1,1,1,2,2,2,3,3,3} 
+# SETS = unorderderd colleciton of UNIQUE items
+## {1,2,3} = {1,1,1,2,2,2,3,3,3} 
 import math
-math.sqrt() SHIFT+TAB for DOCUMENTATION
+math.sqrt() # SHIFT+TAB for DOCUMENTATION
 
-COMPARISON OPERATORS
-1 < 2, 1 >=3, 1 != 3, 'string' == 'string' 1 == '1' FALSE (1==2 ) AND NOT (1==1), OR, NOT
+# COMPARISON OPERATORS
+1 < 2, 1 >=3, 1 != 3, 'string' == 'string', 1 == '1'# FALSE (1==2 ) AND NOT (1==1), OR, NOT
 if True:
     print('hello')
 elif 2==2:
@@ -55,45 +61,45 @@ elif 2==2:
 else:
     print('false')
 
-FOR LOOPS
+# FOR LOOPS
 seq = [1,2,3,4,5]
 for item in seq:
     print(item)
 
-WHILE LOOPS
+# WHILE LOOPS
 i = 1
 while i < 5:
-    print(i is currently {}.format(i))
+    print(f"i is currently", {}.format(i))
     i = i + 1
 
-RANGE
+# RANGE
 range(5) # = range(0,5)
 for item in range(0,20,2):
     print(item) # prints 0,2,4...
 
-LIST    
+# LIST    
 list(range(1,11)) # [1,2,3...10]
 my_list = [1,2,3,4]
 my_list.pop() # RETURNS 4
-my_list,pop(0) # RETURN 1
+my_list.pop(0) # RETURN 1
 my_list # RETURNS [2,3]
 2 in my_list # RETURNS TRUE
 
-LIST COMPREHENSION
+# LIST COMPREHENSION
 x =[1,2,3,4]
 out = []
-fro num in x:
+for num in x:
     out.append(num**2)
 out = [1, 4, 9, 16]
 [num**2 for num in x] # = [1, 4, 9, 16]
  
-FUNCTIONS
+# FUNCTIONS
 def my_func():
     print('hello')
 def my_func2(param='default'):
-    \"""
+    """
     Docstring goes here!
-    \"""
+    """
     print(param)
 # python3 my_func() # would print doc info and then the word default    
 def my_func3(argument):
@@ -108,14 +114,14 @@ result # prints8
 # EXAMPLE LAMDA AND MAP FUNCTION
 lambda var: var*2 # SAME AS THE times_two(var) funciton above
 seq = [1,2,3,4,5]
-list(map(lambda num:num*2,seq)) = [2,4,6,8,10]
+list(map(lambda num:num*2,seq)) # [2,4,6,8,10]
 def is_even(num):
     return num%2 == 0 
-(filter(is_even,seq)) RETURNS <filter at 0x1ddb513a5f8)
-list(filter(is_even,seq)) RETRURNS, seq v=[1,2,3,4,5]
-list(filter(lambda num:num%2 == 0,seq)) RETURNS [2,4]
+(filter(is_even,seq)) # RETURNS <filter at 0x1ddb513a5f8)
+list(filter(is_even,seq)) # RETRURNS, seq v=[1,2,3,4,5]
+list(filter(lambda num:num%2 == 0,seq)) # RETURNS [2,4]
 
-STRING FUNCTIONS
+# STRING FUNCTIONS
 st = 'hello my name is Sam'
 st.lower # RETURNS 'hello my name is sam'
 st.upper() # RETURNS 'HELLO MY NAME IS SAME'
@@ -124,7 +130,7 @@ tweet.split() # RETURNS ['Go', 'Sports!', '#cool']
 tweet.split('#') # RETURNS 'cool'
 # TYPE tweet. TO SEE THE LIST POSSIBLE  FUNCTIONS
 
-EXERCISES
+# EXERCISES
 #1 Given price = 300, figure out the squre root of the price in python.
 price = 300
 price ** 0.5 # OR
@@ -136,13 +142,13 @@ stock_index[2:]
 #3 Use .format() to print The SP500 is at 300 today.
 stock_index = "SP500"
 price = 300
-"The {} is at {} today".format(stock_index,price))
+"The {} is at {} today".format(stock_index,price)
 #3 Given the variable of a nested dictionary with nested lists grab certain items using indexing and key calls
 stock_info = {'sp500':{'today':300, 'yesterday':250},'info':['Time',[24,7,365]]}
 stock_info.keys() # RETURNS dict_keys{['sp500', 'info']}
 stock_info['sp500']['yesterday'] # RETURNS 250
 stock_info['info'][1][2] # RETRUNS 365
-stock_info['info'][1] RETURNS [24, 7, 365]
+stock_info['info'][1] # RETURNS [24, 7, 365]
 #4 Create a () called source_finder() that returns the source.
 def source_finder(s):
     return s.split('--')[-1]
@@ -166,33 +172,33 @@ def avg_price(stocks):
 avg_price([3,4,5]) # Returns 4.0
 
 # NUMPY 
-NumPy is a data science library
+## NumPy is a data science library
 
-ARRAYS - A Python library for creating N-dimensional arrays, quickly broadcast functions.
-Has Built-in linear algebra, statistical distributions, trigonometric, and random number capabilities.
-Look similar to standard Python lists, they are much more efficient!
+# ARRAYS - A Python library for creating N-dimensional arrays, quickly broadcast functions.
+## Has Built-in linear algebra, statistical distributions, trigonometric, and random number capabilities.
+## Look similar to standard Python lists, they are much more efficient!
 
-BROADCASTING capabilities are extremely useful for quickly applying () to our data sets.
+# BROADCASTING capabilities are extremely useful for quickly applying () to our data sets.
 import numpy as np
 mylist = [1,2,3]
 type(mylist) # = list
 np.array(mylist) # = array([1,2,3])
 myarray = np.array(mylist) # myarray = array([1,2,3])
-type(array) = # numpy.ndarray
+type(myarray)  # numpy.ndarray
 my_matrix  = [[1,2,3],[4,5,6],[7,8,9]] # my_matrix = [[1,2,3],[4,5,6],[7,8,9]]
 np.array(my_matrix) 
 # array([[1,2,3],
-        [4,5,6],
-        [7,8,9]])
+#        [4,5,6],
+#        [7,8,9]])
 np.arange(0,101,20) # array([0,20,40,60,80,100])
 np.zeros(5) # array([0.,0.,0.,0.,0.])
-np.zeros(2,5)) 
+np.zeros(2,5) 
 # array([0.,0.,0.,0.,0.],
-        [0.,0.,0.,0.,0.]])
+#        [0.,0.,0.,0.,0.]])
 np.ones(5) # array([1., 1., 1., 1., 1.])
 np.linspace(0,10,11)# array([0.    , 1.11111111, 2.22222222, ... 10.       ]) 21 numbers
 np.exe(5) # array([1.,0.,0.,0.,0.,],
-                  [0.,1.,2.,3.,4.,],)
+#                  [0.,1.,2.,3.,4.,],)
 np.random.rand(1) # Gives a random number between 0 and 1 array([0.11242691])
 np.random.rand(5,2) # Five rows of two random numbers
 np.random.randn # Mean is 0 and variance 1 array([-0.90387279, -0.33609234, 1.54333558, etc.])
@@ -203,7 +209,7 @@ np.random.seed(42) # seed 42 from hitchhikers guide to the galaxy
 np.random.rand(4) # array([0.3745012, ...])
 arr = np.arrange(0,25) # arr = array([0,1,2,3...24])
 arr.reshape(5,5) # array([0,1,2,3,4],
-                        [5,6,7,8,9],...
+#                        [5,6,7,8,9],...
 ranarr = np.random.randint(0,101,10)
 ranarr.max() # 93
 ranarr.min() # 8
@@ -216,7 +222,7 @@ arr = arr.reshape(5,5) # the numbers in an array of 5 by 5
 anarr = np.arrange(0,11) # arr = array([0,1,2,3..1])
 anarr[8] # 8
 anarr[1:5] # array([0,1,2,3,4]) SAME AS anarr([:5])
-anarr2[5:] # array([5,6,7,8,9,10])
+anarr[5:] # array([5,6,7,8,9,10])
 
 # BROADCASTING 
 anarr[0:5] = 100 # anarr = array([100, 100, 100, 100, 100, 5, 6, 7, 8, 9, 10])
@@ -230,8 +236,8 @@ arr_copy[:] = 100 # arr_copy = array([99, 99, 99, 99, 99, 5, 6, 7, 8, 9, 10])
 # INDEXING ON 2D ARRAYS
 arr_2d = np.array([5,10,15],[20,25,30],[35,30,45])
 arr_2d # = array([5,  10, 15],
-                 [20, 25, 30],
-                 [35, 40, 45])
+#                [20, 25, 30],
+#                 [35, 40, 45])
 
 arr_2d.shape # (3,3)
 arr_2d[2] # = array([35, 40, 45])
@@ -240,7 +246,7 @@ arr_2d[1,1] # 25
 arr_2d[:2] # array([ 5, 10, 15],
 #                  [20, 25, 30]]) 
 arr_2d[:2,1:] # array([10, 15],
-                      [25, 30]])
+#                      [25, 30]])
 
                       # OPERATORS
 arrop =- np.arrange(0,10) # array([0,1,2,3,4,5,6,7,8,9])
@@ -256,7 +262,7 @@ arr2d = np.arange(0,25).reshap(5,5) # arr2d.shape (5,5)
 arr2d # array[0,1,2,3,4],
       #      [5,6,7,8...
 arr2d.sum() # 300
-arr2d.sum(axis=0# array([50,55,60,65,70]) columns
+arr2d.sum(axis=0) # array([50,55,60,65,70]) columns
 arr2d.sum(axis=1) # array([10,35,60,85,110]) rows
 
 # NUMPY EXERCISES
@@ -391,7 +397,7 @@ print('TEMPORARILY SET INDEX\n,dfcvs.set_index(\'Payment ID\')','\n',)
 print('PERMANENTLY SET INDEX by dfcvs = dfcvs.set_index(...')
 print('RESET INDEX\ndfcvs.reset_index(),\n')
 print('LOC - LABEL BASED INDEXING\n,dfcvs.loc[\'Sun2959\'], OR numerical with dfcvs.iloc[0]\n')
-print('SLICE DATA\ndfcvs.iloc[0:4]\n') # COULD DO dfcvs.loc[\'Sun2959\']: FOR MULTIPLE ROWS
+print('SLICE DATA\ndfcvs.iloc[0:4]\n') # COULD DO dfcvs.loc[\'Sun2959\']: OR dfcvs.loc[['Sun2959','Sun5260']] FOR MULTIPLE ROWS
 print('REMOVING ROWS,dfcvs.drop(\'Sun2959\', axis=0)') # axis=0 is rows, axis=1 is columns
 print('PERMANENTLY DROP First 3 WOULD BE, dfcvs = dfcvs.iloc[3:3]') # DROP FIRST 3 ROWS AND KEEP REST)
 print('ADDING A ROW = SAY WE ADD A ROW one_row = dfcvs.iloc[0], dfcvs.append(one_row), PERMANENT = dfcvs = dfcvs.append(one_row)')
@@ -413,11 +419,13 @@ print('\ndf2[df2["Population"] > 50]:\n',df2[df2['Population'] > 50],) # RETURNS
 # FILTERING WITH (MULTIPLE) CONDITIONS
 dftips = pd.read_csv('tips.csv')
 print('\nREAD HEAD OF TIPS DataFrame\n', dftips.head())
-print('\nFILTER TIPS SERIES WHERE TOTAL BILL > 22\n', dftips[dftips['total_bill'] > 50])
+print('\nFILTER TIPS SERIES WHERE TOTAL BILL > 50\n', dftips[dftips['total_bill'] > 50])
 print('\nFILTER TIPS SERIES WHERE TOTAL BILL > 22 AND DAY IS FRI\n', dftips[(dftips['total_bill'] > 22) & (dftips['day'] == 'Fri')])
 # print(dftips.columns)
+options = ['Sat', 'Sun']
+dftips['day'].isin(options) # Will print 0   True...
 
-# PANDAS USEFUL METHODS
+### PANDAS USEFUL METHODS ###
 print('\nUSEFUL METHODS:\napply()\n')
 print('EX. 1 dftips.head()\n',dftips.head())
 print('GRAB LAST 4 DIGIST OF CC#\n',dftips['CC Number'].apply(lambda x: str(x)[-4:]),'\n')
@@ -459,6 +467,7 @@ print('\nHAVE IT RUN FASTER WITH VECTORIZE - df[\'Quality\'] = np.vectorize(Qual
 dftips['Quality'] = np.vectorize(Quality)(dftips['total_bill'], dftips['tip'])
 print(dftips.head())
 # dftips['Quality'] = dftips['total_bill', 'tip'].apply(Quality)
+
 # TIMELY CODE STARTS HERE AFTER ADDING TRIPLE QUOTES
 # TIMING CODE WITH TIMEIT - NOTE TRIPLE QUOTES BELOW ARE NEEDED FOR TIMELY CODE TO WORK SO PLACE 3 QUOTES BEFORE THIS LINE
 # TIMELY CODE TO BE EXECUTED ONCE FOR TIMELY
@@ -488,7 +497,7 @@ print('\nUsing timely: ',timelyone)
 print('Using timely with vectorize: ',timelytwo)
 """ # TIMELY CODE ENDS HERE
 
-"""
+
 # USEFUL METHODS - DESCRIBING AND SORTING
 print('\nUSEFUL METHODS - DESCRIBING AND SORTING')
 dfsort = pd.read_csv('tips.csv')
