@@ -2,7 +2,11 @@ from tkinter import ALL
 import numpy as np
 import pandas as pd
 import timeit 
+import os
 
+""" 
+#### PYTHON BASICS #########################################################################################
+"""
 # COMMENTS 
 """
 # MULTIPLE ROW COMMENTS
@@ -143,7 +147,7 @@ stock_index[2:]
 stock_index = "SP500"
 price = 300
 "The {} is at {} today".format(stock_index,price)
-#3 Given the variable of a nested dictionary with nested lists grab certain items using indexing and key calls
+#3 Given the variable of a nested dictionary w\ nested lists grab certain items using indexing + key calls
 stock_info = {'sp500':{'today':300, 'yesterday':250},'info':['Time',[24,7,365]]}
 stock_info.keys() # RETURNS dict_keys{['sp500', 'info']}
 stock_info['sp500']['yesterday'] # RETURNS 250
@@ -171,7 +175,7 @@ def avg_price(stocks):
     return sum(stocks)/len(stocks)
 avg_price([3,4,5]) # Returns 4.0
 
-# NUMPY 
+#### NUMPY ################################################################################################# 
 ## NumPy is a data science library
 
 # ARRAYS - A Python library for creating N-dimensional arrays, quickly broadcast functions.
@@ -289,14 +293,14 @@ arr2d.sum(axis=1) # array([10,35,60,85,110]) rows
 # 20 Get the sum of all the columns in mat = mat.sum(axis=0)
 # BONUS = Always get same random #'s = np.random.seed(101), np.random.rand(1)
 
-# PANDAS
-# A Series - data structure that holds an array of info w/a named+# index
-# Named index differentiates this from a NumPy array. Formal Definition: A long-dimensional ndarray with axis labels
+#### CORE PANDAS ###########################################################################################
+# A Series - data structure that holds an array of info w/a named index
+# Named index differentiates this from a NumPy array. Formal Def: A long-dimensional ndarray w\ axis labels
 # import numpy as np
 # import pandas as pd
 # help(pd.Series)
 
-# LIST REVIEW - PANAS SERIES
+# LIST REVIEW - PANDAS SERIES
 myindex = ['USA', 'Canada', 'Mexico']
 mydata = [1776,1867,1821]
 myseries = pd.Series(data=myindex)
@@ -334,11 +338,12 @@ print(sales_q2,'\n')
 print('Sales q1 Japan:', sales_q1['Japan'])
 print('Sales.q1.keys()', sales_q1.keys()) # Index(['Japan', 'China', ' India', 'USA'], dtype='object')
 print('Sales.q1 * 2, can do +,/\n', sales_q1 * 2)
-print('sales_q1.add(sales_q2,fill_value=0), aligns by index, add fill value if values don\'t match up\n', sales_q1.add(sales_q2,fill_value=0),)
+print('sales_q1.add(sales_q2,fill_value=0), aligns by index, add fill value if values don\'t match up\n'/
+, sales_q1.add(sales_q2,fill_value=0),)
 print('sales_q1.dtype', sales_q1.dtype)
 
-# DATAFRAME
-# DATAFRAME a table of columns and rows in pandas that we can restructure and filter, a group of Pandas Series 
+#### DATAFRAME #############################################################################################
+# DATAFRAME a table of columns and rows in pandas that we can restructure and filter, group of Pandas Series 
 # objects that share the same index
 # import numpy as np
 # import pandas as pd
@@ -360,7 +365,7 @@ df = pd.DataFrame(data=dfranddata, index=dfindex, columns=dfcolumns)
 print('\nDataFrame of df data:\n', df,'\n','\nDF Info:')
 print(df.info()) 
 
-# HOW TO READ A CSV FILE FROM a PANDAS DATAFRAME (CAN READ OTHER FILES)
+# HOW TO READ A CSV FILE FROM a PANDAS DATAFRAME (CAN READ OTHER FILES LIKE HTML)
 dfcvs = pd.read_csv('tips.csv') # pd.read_csv)'C:\\Users\\CSV_FILE\\LOCATION\.file.csv
 print('\nTIPS:\n',dfcvs) # PRINT WHOLE FILE
 print('COLUMNS:\n',dfcvs.columns,'\n') # Index(['total_bill', 'tip', ...])
@@ -369,8 +374,12 @@ print('HEAD:\n',dfcvs.head(),'\n') # dfcvs.head(10)  First 10 rows
 print('TAIL:\n',dfcvs.tail(5),'\n') # dfcvs.tail(10) last 10 rows
 print('INFO:\n')
 print(dfcvs.info())
-print('DESCRIBE:\n',dfcvs.describe(),'\n') # DESCRIBE DOES STATISTICAL OPS - MIN, MAX, MEAN, COUNT, STD, 25%, 50%, 75%
+print('DESCRIBE:\n',dfcvs.describe(),'\n') # DESCRIBE STATISTICAL OPS MIN, MAX, MEAN, COUNT, STD, 25%, 50%
 print('DESCRIBE.TRANSPOSE:\n',dfcvs.describe().transpose(),'\n') # Transposes columns                                                                                                                                                                                                                                                           
+
+# USING OS
+# import os
+# os.getcwd() GET WORKING DIR
 
 # WORKING WITH COLUMNS
 print('WORKING WITH COLUMNS:\n',dfcvs.head(),'\n')
@@ -389,7 +398,7 @@ dfcvs['price_per_person'] = np.round(dfcvs['total_bill'] / dfcvs['size'],2)
 print(dfcvs.head())
 
 # REMOVING COLUMS
-dfcvs.drop('tip_pct', axis=1, inplace=True) # axis=0 is rows, axis=1 is columns inplace=True means column is kept in bg
+dfcvs.drop('tip_pct', axis=1, inplace=True) # axis=0 =rows, axis=1 =columns inplace=True =column kept in bg
 
 # WORKING WITH ROWS
 print('INDEX\n',dfcvs.index)
@@ -397,14 +406,18 @@ print('TEMPORARILY SET INDEX\n,dfcvs.set_index(\'Payment ID\')','\n',)
 print('PERMANENTLY SET INDEX by dfcvs = dfcvs.set_index(...')
 print('RESET INDEX\ndfcvs.reset_index(),\n')
 print('LOC - LABEL BASED INDEXING\n,dfcvs.loc[\'Sun2959\'], OR numerical with dfcvs.iloc[0]\n')
-print('SLICE DATA\ndfcvs.iloc[0:4]\n') # COULD DO dfcvs.loc[\'Sun2959\']: OR dfcvs.loc[['Sun2959','Sun5260']] FOR MULTIPLE ROWS
+print('SLICE DATA\ndfcvs.iloc[0:4]\n') 
+# COULD DO dfcvs.loc[\'Sun2959\']: OR dfcvs.loc[['Sun2959','Sun5260']] FOR MULTIPLE ROWS
 print('REMOVING ROWS,dfcvs.drop(\'Sun2959\', axis=0)') # axis=0 is rows, axis=1 is columns
 print('PERMANENTLY DROP First 3 WOULD BE, dfcvs = dfcvs.iloc[3:3]') # DROP FIRST 3 ROWS AND KEEP REST)
-print('ADDING A ROW = SAY WE ADD A ROW one_row = dfcvs.iloc[0], dfcvs.append(one_row), PERMANENT = dfcvs = dfcvs.append(one_row)')
+print('ADDING A ROW = SAY WE ADD A ROW one_row = dfcvs.iloc[0], dfcvs.append(one_row), /
+PERMANENT = dfcvs = dfcvs.append(one_row)')
 a_row = dfcvs.iloc[0]
 print('added',a_row)
+"""
 
-# TYPICALLY IN DATA ANALYSIS OUR DATASETS ARE LARGE ENOUGH WE DON'T FILTER BASED ON POSITION, INSTEAD BASED ON A CONDITION
+"""
+# TYPICALLY IN DATA ANALYSIS OUR DATASETS ARE LARGE ENOUGH WE DON'T FILTER BASED ON POSITION, USE CONDITION
 # CONDITIONAL FILTERING ALLOWS US TO SELECT ROWS BASED A CONDITION ON A COLUMN
 
 myindex2 = ['USA', 'Canada', 'Mexico']
@@ -420,7 +433,8 @@ print('\ndf2[df2["Population"] > 50]:\n',df2[df2['Population'] > 50],) # RETURNS
 dftips = pd.read_csv('tips.csv')
 print('\nREAD HEAD OF TIPS DataFrame\n', dftips.head())
 print('\nFILTER TIPS SERIES WHERE TOTAL BILL > 50\n', dftips[dftips['total_bill'] > 50])
-print('\nFILTER TIPS SERIES WHERE TOTAL BILL > 22 AND DAY IS FRI\n', dftips[(dftips['total_bill'] > 22) & (dftips['day'] == 'Fri')])
+print('\nFILTER TIPS SERIES WHERE TOTAL BILL > 22 AND DAY IS FRI\n', /
+ dftips[(dftips['total_bill'] > 22) & (dftips['day'] == 'Fri')])
 # print(dftips.columns)
 options = ['Sat', 'Sun']
 dftips['day'].isin(options) # Will print 0   True...
@@ -429,7 +443,8 @@ dftips['day'].isin(options) # Will print 0   True...
 print('\nUSEFUL METHODS:\napply()\n')
 print('EX. 1 dftips.head()\n',dftips.head())
 print('GRAB LAST 4 DIGIST OF CC#\n',dftips['CC Number'].apply(lambda x: str(x)[-4:]),'\n')
-print('CREATE A CUSTOM FUNCTION GRAB LAST FOUR and apply it to a column\ndef grab_last_four(num):\n return str(num)[-4:]\n')
+print('CREATE A CUSTOM FUNCTION GRAB LAST FOUR and apply it to a /
+column\ndef grab_last_four(num):\n return str(num)[-4:]\n')
 print('def grab_last_four(num):')
 print('    return str(num)[-4:]\n') 
 def grab_last_four(num):
@@ -451,7 +466,8 @@ print(dftips.head())
 print('APPLY MULTIPLE FUNCTIONS ON MULTIPLE COLUMNS')
 print('EXAMPLE LAMBDA FUNCTION, SUPPOSE WE HAD\n def simple(num):\n return num * 2\n')
 print('LAMBDA FUNCTION WOULD BE\n lambda num: num *2')
-print('dftips[\'TOTAL_BILL,tip\'].apply(lambda num: num * 2)\n', dftips[['total_bill','tip']].apply(lambda num: num * 2),'\n')
+print('dftips[\'TOTAL_BILL,tip\'].apply(lambda num: num * 2)\n', /
+dftips[['total_bill','tip']].apply(lambda num: num * 2),'\n')
 def Quality(total_bill,tip):
     if tip / total_bill >= 0.25:
         return 'Generous'
@@ -459,17 +475,22 @@ def Quality(total_bill,tip):
         return 'Average'
     else:
         return 'Cheap'
-print('dftips[[\'total_bill\', \'tip\']].apply(lambda dftips: Quality(dftips[\'total_bill\'], dftips[\'tip\']), axis=1)\n')
-dftips['Quality']=dftips[['total_bill', 'tip']].apply(lambda dftips: Quality(dftips['total_bill'], dftips['tip']), axis=1)
+print('dftips[[\'total_bill\', \'tip\']]/
+.apply(lambda dftips: Quality(dftips[\'total_bill\'], dftips[\'tip\']), axis=1)\n')
+dftips['Quality']=dftips[['total_bill', 'tip']]/
+.apply(lambda dftips: Quality(dftips['total_bill'], dftips['tip']), axis=1)
 print(dftips['Quality'])
-print('\nHAVE IT RUN FASTER WITH VECTORIZE - df[\'Quality\'] = np.vectorize(Quality)(dftips[\'total_bill\'], dftips[\'tip\'])')
+print('\nHAVE IT RUN FASTER WITH VECTORIZE - df[\'Quality\'] = /
+np.vectorize(Quality)(dftips[\'total_bill\'], dftips[\'tip\'])')
+
 # NP VECTORIZE TRANSFORMS FUNTION THAT ARE NOT NUMPY AWARE 
 dftips['Quality'] = np.vectorize(Quality)(dftips['total_bill'], dftips['tip'])
 print(dftips.head())
 # dftips['Quality'] = dftips['total_bill', 'tip'].apply(Quality)
 
 # TIMELY CODE STARTS HERE AFTER ADDING TRIPLE QUOTES
-# TIMING CODE WITH TIMEIT - NOTE TRIPLE QUOTES BELOW ARE NEEDED FOR TIMELY CODE TO WORK SO PLACE 3 QUOTES BEFORE THIS LINE
+# TIMING CODE WITH TIMEIT - NOTE TRIPLE QUOTES BELOW ARE NEEDED FOR TIMELY CODE TO WORK/
+# SO PLACE 3 QUOTES BEFORE THIS LINE
 # TIMELY CODE TO BE EXECUTED ONCE FOR TIMELY
 """
 pdtimely = '''
@@ -491,7 +512,7 @@ dftips['Tip Quality'] = dftips[['total_bill', 'tip']].apply(lambda dftips: quali
 '''
 stmt_two = '''
 dftips['Tip Quality'] = np.vectorize(qualitytimely)(dftips['total_bill'], dftips['tip'])
-'''
+''' 
 ## timelyone = timeit.timeit(setup=pdtimely,stmt=stmt_one,number=1000)
 ## timelytwo = timeit.timeit(setup=pdtimely,stmt=stmt_two,number=1000)
 ## print('\nUsing timely: ',timelyone)
@@ -560,6 +581,7 @@ print('one:\n',one,'\n', sep='')
 print('two:\n',two,'\n', sep='')
 print('\nCONCAT THEM BOTH = pd.concat([one,two],axis=1)\n',pd.concat([one,two],axis=1))
 print('\nSEPARATE BY AB and CD = pd.concat([one,two],axis=0)\n',pd.concat([one,two],axis=0))
+
 # MATCHING COLUMNS
 print('\ntwo.columns = one.columns')
 two.columns = one.columns
@@ -567,12 +589,13 @@ print('\ntwo:\n',two)
 print('\nMERGE THEM = pd.concat([one,two],axis=0):')
 concatdf = pd.concat([one,two],axis=0)
 print(concatdf)
+
 # RESET INDEX
 print('\nRESET INDEX -  concatdf.index = range(len(concatdf))')
 concatdf.index = range(len(concatdf))
 print(concatdf)
 
-# COMBINING DATAFRAMES
+# COMBINING\MERGING DATAFRAMES
 print('\nOFTEN DATAFRAMES ARE NOT IN EXACT SAME ORDER OR FORMAT, IN THIS CASE, WE NEED TO MERGE THEM')
 print('THE .merge() TAKES IN A KEY ARG LABELED HOW: 3 WAYS INNER, OUTER, LEFT/RIGHT')
 print("MAIN ARGUMENT IS TO DECIDE HOW TO DEAL WITH INFO ONLY PRESENT IN ONE OF THE JOINED TABLES")
@@ -595,4 +618,37 @@ print(mergedL)
 print('\nRIGHT MERGE\npd.merge(registrations,logins,how=\'right\',on=\'name\')')
 mergedR = pd.merge(left=registrations,right=logins,how='right',on='name')
 print(mergedR)
+
+# PANDAS IO - CVS
+
+# PANDAS IO - HTML (pip install lxml) (can also copy source file)
+# import pandas as pd
+#urlfile = "worldpop.html" # https://en.wikipedia.org/wiki/World_population"
+urlfile2 = "https://www.worldometers.info/world-population/population-by-country/"
+#try:
+#    with open(urlfile, 'r', encoding='utf-8') as f:
+#        html_content = f.read()
+#except FileNotFoundError:
+#    print(f"Error: The file '{urlfile}' was not found.")
+#except Exception as e:
+#    print(f"An error occurred: {e}")
+#tableshtml = pd.read_html(urlfile)
+#print(len(urlfile))
+# print(len(tableshtml))
+# world_topten = tableshtml[4]
+# print(world_topten.iloc[1:1, 0:1])
+#world_topten = world_topten['World population (millions, UN estimates)[15]'] 
+#world_topten = world_topten.drop(11,axis=0) # Clean up a bit
+#world_topten = world_topten.drop('#',axis=1)
+#print(world_topten.columns = ['Region','2022 (percent)','2030 (percent)','2050 (percent)'])
+#world_topten
+tableshtml2 = pd.read_html(urlfile2)
+print(len(tableshtml2)) # only 1
+world_top_ten = tableshtml2[0] # if more than one tables could do tableshtml2[1]
+world_top_ten = world_top_ten.drop('#',axis=1) # DROP that # Column
+# world_top_ten.columns = ['Country', 'Pop. 25'...] # RENAME Column
+# world_top_ten.to_html('WORLD TOP TEN BY POP.html', index=False)
+print(world_top_ten)
+
+
 """
