@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import timeit 
 import os
+from sqlalchemy import create_engine # https://www.sqlalchemy.org/
 
 """ 
 #### PYTHON BASICS #########################################################################################
@@ -564,7 +565,7 @@ print('\nSORT VALUES TIP = dfsort.sort_values(\'tip\',ascending=True).iloc[0:2])
 print('\nSAMPLE FIVE RANDOM ROWS =  dfsort.sample(5)\n', dfsort.sample(5))
 
 # OFTEN THE DATA NEEDED EXIST IN TWO SEPARATE SOURCES, FORTUNATELY, PANDAS MAKES IT EASY TO COMBINE. 
-# SAME FORMAT (*SIMPLEST) A CONCATENATION (PAST TWO DF TOGETHER) THROUSH pd.concat() IS ALL THAT IS NEEDED
+# SAME FORMAT (*SIMPLEST) A CONCATENATION (PAST TWO DF TOGETHER) THROUH pd.concat() IS ALL THAT IS NEEDED
 # PANDAS WILL AUTO FILL FOR NAN VALUES
 
 # import numpy as np
@@ -620,6 +621,12 @@ mergedR = pd.merge(left=registrations,right=logins,how='right',on='name')
 print(mergedR)
 
 # PANDAS IO - CVS
+# import pandas as pd
+# import os
+# os.getcwd()
+# dfsomecvs = pd.read_csv('example.csv', header=None) # Sets A B C D as a row entry 0 a b c d
+# dfsomecvs = pd.read_csv('example.csv', index_col=0) # Sets a as index
+# dfsinecvs.to_csv('somefilename_or_filepath_+filename, index=false)
 
 # PANDAS IO - HTML (pip install lxml) (can also copy source file)
 # import pandas as pd
@@ -651,4 +658,90 @@ world_top_ten = world_top_ten.drop('#',axis=1) # DROP that # Column
 print(world_top_ten)
 
 
+# PANDAS IO - EXCEL
+# import pandas as pd 
+# import openpyxl
+# import xlrdc # python-excel.org
+# dfexcel = pd.read_excel('Excel_Sample.xlsx', sheet_name='Sheet1') # sheet_name='Sheet2'
+# workbook = pd.ExcelFile('Excel_Sample.xlsx')
+# workbook.sheet_names # ['Sheet1', 'Sheet2']
+# excelsheetdic = pd.read_excel('myexcelfile.xlsx', sheet_name=None)
+# type(excelsheetdic) # dict
+# excelsheetdic.keys() # dict_keys(['Sheet1', 'Sheet2'])
+# df1 = excelsheetdic['Sheet1']
+# dfl.to_excel('example.xlsx', sheet_name='Sheet1')
+
+
+# PANDAS IO - SQL
+# import pandas as pd 
+# from sqlalchemy import create_engine # https://www.sqlalchemy.org/ pip3 install sqlalchemy
+# Use sqlalchemy to connect to your SQL database with the driver:
+# docs.sqlaclchemy.rog/en/13/dialects/index.html
+# Use the sqlalchemy driver connection with pandas read_sql method
+# Pandas can read in entire tables as a DataFrame or pars a SQL query through SELECT * FROM table;
+temp_sqlldb = create_engine('sqlite:///:memory:') # TEMP DB IN MEMORY
+sqldf = pd.DataFrame(data=np.random.randint(low=0,high=100,size=(4,4)),columns=['A','B','C','D'],index=['0','1','2','3'])
+sqldf.to_sql(name='sqltable', con=temp_sqlldb, index=False) # CREATE TABLE mytable
+print(sqldf,'\n') 
+sqldf2 = pd.read_sql(sql='sqltable', con=temp_sqlldb) # READ TABLE
+print(sqldf2,'\n')
+sqldf3 = pd.read_sql_query(sql='SELECT a,c FROM sqltable', con=temp_sqlldb) # SQL QUERY
+print(sqldf3,'\n')
 """
+
+# EXERCISES PANDAS IO - SQL
+## 1. import neccessary libraries
+# import pandas as pd
+## 2. List all columns in the two datasets. Additionally retrieve the datatype for each column.
+#for col, dtype in .df1.dtypes.items(): print(f'{col}: {dtype}') # OR
+consituents = pd.read_csv('constituents.csv')
+financials = pd.read_csv('constituents-financials.csv')
+#print(consituents.columns, financials.columns) # OR (BETTER)
+consituents.info(),financials.info(), consituents.head()
+## 3. Print first 5 rows of each dataframe
+print('\n',consituents.head(), financials.head()) # OR consituents.head(5), financials.head(5)
+## 4. Drop the SEC Filings column from the financials dataset 
+financials = financials.drop('SEC Filings', axis=1) # DROP SEC FILINGS COLUMN
+print('\n',financials) 
+## 5. Set the Symbol column to the index in the financials dataset
+print('\nSet the Symbol column to the index')
+financials = financials.set_index('Symbol')
+print(financials)
+## 6. What are the 10 largest companies according to the market cap?
+print('\n10 largest companies according to the market cap')
+print(financials['Market Cap'].nlargest(10)) # OR financials.sort_values('Market Cap', ascending=False).head(10)
+## 7. DROP GOOG - Difference between GOOG and GOOGL is that GOOG shares have no voting rights
+financials.drop('GOOG', axis=0) # DROP GOOG OR financials.drop('GOOG', axis=0, inplace=True) for permanent
+## 8. How many companies have a dividend yield > 4%
+print('\nCompanies that have a dividend yield > 4%')
+print(len(financials[financials['Dividend Yield'] > 4])) # OR
+## 9.What is the mean Earnings per Share for all companies with a market cap > 1e+11
+print('\nMean Earnings per Share for all companies with a market cap > 1e+11')
+print(financials[financials['Market Cap']>1e+11]['Earnings/Share'].mean())
+## 10. How many companies have a positive earnings per shares ratio?
+print('\nCompanies that have a positive earnings per shares ratio?')
+print(financials['Price/Earnings'] > 0) # OR print(financials['Price/Earnings'] > 0).sum() # OR
+print('\n',len(financials[financials['Price/Earnings'] > 0])) # OR print((financials['Price/Earnings'] > 0).sum())
+## 11 Which company pays the highest dividend yield? What was its 52 week high?
+print('\nCompany that pays the highest dividend yield and its 52 week high')
+print(financials['Dividend Yield'].idxmax()) #financials['Dividend Yield'].max()) 
+print(consituents[consituents['Symbol'] == 'CTL'])
+print('\nFinancials.describe()\n',financials.describe())
+print ('\nCompanies with the largest spread betwen 52 Week High and Low')
+print(abs(financials['52 Week High'] - financials['52 Week Low']).idxmax())
+print('\nReturn all companies with a price between $50 and $100')
+print(financials['Price'].between(50,100))
+print('\nCreate a column called "Market Cap in Billion')
+financials['Market Cap in Billion'] = financials['Market Cap'] / 1e+9
+print(financials['Market Cap in Billion'])
+print('\nIs there a correlation between Market Cap and Dividend Yield')
+print(financials[['Market Cap','Dividend Yield']].corr())
+print('\nMerge the financials dataframe with the constituents dataframe')
+merged = pd.merge(financials, consituents, on='Symbol', suffixes=('_fin', '_const'))
+print(merged)
+print('\nHow often does each sector appear in the dataset')
+print(merged['Sector'].value_counts()) # OR merged['Sector'].unique()
+print('\nReplace Information Technology with IT')
+itmap = {'Information Technology':'IT'}
+print('\nmerged[\'Sector\'].map(itmap)\n',merged['Sector'].replace(itmap))#,inplace=True)
+print('\nAdd a $ before the stock price',merged['Price'].apply(lambda x: f'${x}'))
