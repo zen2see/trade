@@ -4,6 +4,7 @@ import pandas as pd
 import timeit 
 import os
 from sqlalchemy import create_engine # https://www.sqlalchemy.org/
+import matplotlib.pyplot as plt
 
 """ 
 #### PYTHON BASICS #########################################################################################
@@ -58,7 +59,7 @@ import math
 math.sqrt(4) # SHIFT+TAB for DOCUMENTATION
 
 # COMPARISON OPERATORS
-1 < 2, 1 >=3, 1 != 3, 'string' == 'string', 1 == '1'# FALSE (1==2 ) AND NOT (1==1), OR, NOT
+# 1 < 2, 1 >=3, 1 != 3, 'string' == 'string', 1 == '1'# FALSE (1==2 ) AND NOT (1==1), OR, NOT
 if True:
     print('hello')
 elif 2==2:
@@ -108,8 +109,8 @@ def my_func2(param='default'):
 my_func(param)
 # python3 my_func() # would print doc info and then the word default    
 def my_func3(argument):
-    return argument*5 # returns 25
-x = my_func3(5)
+    return argument*5 
+x = my_func3(5) # returns 25
 print(x) # prints 25
 def times_two(var):
     return var*2
@@ -687,7 +688,7 @@ sqldf2 = pd.read_sql(sql='sqltable', con=temp_sqlldb) # READ TABLE
 print(sqldf2,'\n')
 sqldf3 = pd.read_sql_query(sql='SELECT a,c FROM sqltable', con=temp_sqlldb) # SQL QUERY
 print(sqldf3,'\n')
-"""
+
 
 # EXERCISES PANDAS IO - SQL
 ## 1. import neccessary libraries
@@ -745,3 +746,116 @@ print('\nReplace Information Technology with IT')
 itmap = {'Information Technology':'IT'}
 print('\nmerged[\'Sector\'].map(itmap)\n',merged['Sector'].replace(itmap))#,inplace=True)
 print('\nAdd a $ before the stock price',merged['Price'].apply(lambda x: f'${x}'))
+
+
+# MATPLOTLIB - plotting with Python https://matplotlib.org https://matplotlib.org/gallery.html
+# Ability to heavily customize a plot, 2 separate approaches to creating plots, functional and OOP
+# Two main goals - plot out a functional relationship - y=2x, also relationship bet two points x=[1,2,3], y=[2,4,6]
+
+
+# MATPLOTLIB - BASICS
+# Difference between displaying plots w/in a notebook vs running a script (need to add plt.show())
+# import matplotlib.pyplot as plt
+# import numpy as np
+xnp = np.arange(0,10)
+ynp = 2*xnp
+print('\nxnp np.arange(0,10) = ',xnp)
+print('\nynp = 2*xnp',ynp)
+plt.xlabel('X axis')
+plt.ylabel('Y axis')
+plt.xlim(0,6) # LIMIT X ONLY SHOWS 0-6 ON X CAN ALSO DO YLIM
+plt.title('Simple Plot')
+print('\nplt.plot(xnp,ynp)', plt.plot(xnp,ynp))
+plt.savefig('simpleplot.png') # SAVE FIGURE AS PNG FILE
+plt.show() # NEED THIS LINE IF RUNNING AS SCRIPT TO DISPLAY FIGURE
+
+
+# MATPLOTLIB UNDERSTANDING THE FIGURE OBJECT - add axes and then plot on those axes.
+# import numpy as np
+# import matplotlib.pyplot as plt
+# DATA FOR PLOTTING
+a = np.linspace(0,10,11) # 11 linearly spaced points between 0-10
+b = a**4
+print(' a=np.linspace(0,10,11):',a,'\n','b=a**4:',b)
+# plt.figure() # <Figure size 640x480 with 0 Axes>
+# plt.figure(figsize=(10,10)) # FIGURE SIZE IN INCHES WIDTH, HEIGHT
+# plt.show() # NEED THIS LINE IF RUNNING AS SCRIPT TO DISPLAY FIGURE EMPTY AS OF NOW
+fig = plt.figure()
+print('\nfig = plt.figure()',fig)
+# LARGE AXES
+axes1 = fig.add_axes([0,0,1,1]) # 0,0 = lower left corner, 1,1 = width, height
+axes1.plot(a,b) # Add axis, can add more add; to get rid
+axes1.set_xlim(0,8)
+axes1.set_ylim(0,8000)
+axes1.set_xlabel('A')
+axes1.set_ylabel('B')
+axes1.set_title('LARGE PLOT B = A^4')
+# SMALL AXES
+axes2 = fig.add_axes([0.2,0.5,0.25,0.25])
+axes2.plot(a,b)
+axes2.set_xlim(1,2)
+axes2.set_ylim(0,50)
+axes2.set_xlabel('A')
+axes2.set_ylabel('B')
+axes2.set_title('ZOOMED IN 1 TO 2')
+plt.show()
+xnparr = np.arange(0,10) # spaced out by 1
+print("\nxnparr = np.arange(0,10):", xnparr) 
+print("ynparr = 2*xnparr:", 2*xnparr) 
+
+
+# MATPLOTLIB - FIGURE PARAMETERS
+a = np.linspace(0,10,11) # 11 linearly spaced points between 0-10
+b = a**4
+fig2 = plt.figure(figsize=(2,2),dpi=100) # dpi = dots per inch
+axesf2 = fig2.add_axes([0,0,1,1])
+axesf2.plot(a,b)
+fig2.savefig('Figure Parameters.png', bbox_inches='tight') # SAVE FIGURE AS PNG FILE
+plt.show()
+
+
+# MATPLOTLIB - SUBPLOTS FUNCTIONALITY
+# Matplotlib comes with a pre-confitgured fuc call plt.subplots()
+# plt.subplots() returns a tuple (fig,axes) containing the figure canvas and then
+# a numpy array holding the axes objects. fig = entrie canvas, axes = numpy array of axes by pos
+# import numpy as np
+# import matplotlib.pyplot as plt
+asp = np.linspace(0,10,11)
+bsp = asp ** 4
+xsp = np.arange(0,10)
+ysp = 2 * xsp
+fig3, axes3 = plt.subplots(nrows=1,ncols=2) # 1 row and 2 columns
+# plt.show()
+print(type(axes3))
+print('axes3.shape: ',axes3.shape)
+print(axes3)
+#axes3[0].plot(xsp,ysp)
+# plt.show()
+#axes3[1].plot(asp,bsp)
+# plt.show()
+fig3, axes3 = plt.subplots(nrows=2,ncols=2) # Now 2 rows and 2 columns
+print('axes3.shape: ',axes3.shape)
+#axes3[0][0].plot(xsp,ysp)
+#axes3[0][1].plot(asp,bsp)
+axes3[1][1].plot(asp,bsp)
+axes3[1][1].set_title('TITLE 1,1')
+fig3.suptitle('Figure Level', fontsize=12)
+plt.tight_layout() # ADJUST SPACING BETWEEN PLOTS OR fig.subplots_adjust(hspace=0.5)
+plt.show()
+fig3.savefig('Subplots Functionality.png', bbox_inches='tight') # SAVE FIGURE AS PNG FILE
+# fig3.set_figwidth(10) # SOME ADDITIONAL OPTIONS OR figsize=(4,10),dpi=200)
+
+
+# MATPLOTLIB - LEGENDS 
+# Visual Styling, colors, editing lines, markers
+xfll = np.linspace(0,11,10)
+figl = plt.figure()
+ax = figl.add_axes([0,0,1,1])
+ax.plot(xfll, xfll, label='xfll vs xfll')
+ax.plot(xfll,xfll**2, label='xfill vs xfll^2')
+ax.legend(loc='lower right') # loc=0 is best location, can also do 'upper left' etc
+figl.savefig('Matplotlib Legends.png', bbox_inches='tight') # SAVE FIGURE AS
+plt.show()
+"""
+
+# MATPLOTLIB - STYLING
