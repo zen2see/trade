@@ -858,4 +858,65 @@ figl.savefig('Matplotlib Legends.png', bbox_inches='tight') # SAVE FIGURE AS
 plt.show()
 """
 
-# MATPLOTLIB - STYLING
+# MATPLOTLIB - COLOR & STYLES Google hex color picker
+# import numpy as np
+# import matplotlib.pyplot as plt
+xstyl = np.linspace(0,11,10)
+figstl = plt.figure()
+# LINES
+axesstl = figstl.add_axes([0,0,1,1])
+axesstl.plot(xstyl, xstyl, label='x v x', lw=10, linestyle=':') # can use linewidth=lw
+axesstl.plot(xstyl, xstyl+2, color='green', label='x v x+2') # can use hex '#008000'
+axesstl.legend()
+lines = axesstl.plot(xstyl,xstyl+.5,color='purple', label='x v x+1', linewidth=2, marker='o',\
+                     markerfacecolor='red', markeredgewidth=6,markeredgecolor='orange')
+#lines[0].set_dashes([5,2,10,2]) # 5 on, 2 off, 10 on, 2 off 
+lines[0].set_dashes([1,2,1,2,10,2]) # 
+axesstl.plot(xstyl,xstyl+1,color='#FF5733', label='x v x+1', lw=2, marker='^', markersize=10)
+plt.show()
+
+# MATHPLOTLIB - ADVANCED COMMANDS
+# LOGARITHMIC SCALE
+##fig, axeslog = plt.subplots(1, 2, figsize=(10,4))
+##axeslog[0].plot(x,x**2,x,np.exp(x))
+##axeslog[0].set_title('Normal Scale')
+##axeslog[1].plot(x,x**2,x,np.exp(x))
+##axeslog[1].set_yscale("log")
+##axeslog[1].set_title('Log Scale (y)')
+
+# CUSTOMIZE PLACEMENT OF TICKES AND CUSTIM TICK LABELS
+##fig, axestick = plt.subplots(1, 2, figsize=(10,4))
+##axesticke.plot(x,x**2,x,x**3,lw=2)
+##axestick.set_xticks([1,2,3,4,5])
+##axestick.set_ticklabels([r'$\alpha$', r'$\beta$', r'$\gamma$', r'$\delta$', r'$\epsilon$'])
+##yticks = [0,50,100,150]
+##axestick.set_yticks(yticks)
+##axestick.set_yticklabels(['$%.1f$' % y for y in yticks], fontsize=18)
+
+# SCIENTIFIC NOTATION
+##from matplotlib import ticker
+##formatter = ticker.ScalarFormatter(useMathText=True)
+##formatter.set_scientific(True)
+##formatter.set_powerlimits((-1,1))
+##ax.yaxis.set_major_formatter(formatter)
+
+# AXIS NUMBER AND AXIS LABEL SPACING
+##matplotlib.rcParams['xtick.major.pad'] = 5
+##matplotlib.rcParams['ytick.major.pad'] = 5
+##fig, ax = plt.subplots(1,1)
+##ax.plot(x, x**2, x, np.exp(x))
+##ax.set_yticks([0,50,100,150])
+##ax.set_title('Label and axis spacing)
+## Padding between axis label and axis numbers
+##ax.xaxis.labelpad = 5
+##ax.yaxis.labelpad = 5
+#ax.set_xlabel('x')
+#ax.set_ylabel('y')
+# Restore defaults
+##matplotlib.rcParams['xtick.major.pad'] = 3
+##matplotlib.rcParams['ytick.major.pad'] = 3
+
+
+
+# EXERCISES MATHPLOTLIB
+# 1. Create a figure and axis object using plt.subplots() with 1 row and
