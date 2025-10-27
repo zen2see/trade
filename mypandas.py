@@ -5,6 +5,7 @@ import timeit
 import os
 from sqlalchemy import create_engine # https://www.sqlalchemy.org/
 import matplotlib.pyplot as plt
+from matplotlib import ticker
 
 """ 
 #### PYTHON BASICS #########################################################################################
@@ -658,7 +659,6 @@ world_top_ten = world_top_ten.drop('#',axis=1) # DROP that # Column
 # world_top_ten.to_html('WORLD TOP TEN BY POP.html', index=False)
 print(world_top_ten)
 
-
 # PANDAS IO - EXCEL
 # import pandas as pd 
 # import openpyxl
@@ -688,7 +688,6 @@ sqldf2 = pd.read_sql(sql='sqltable', con=temp_sqlldb) # READ TABLE
 print(sqldf2,'\n')
 sqldf3 = pd.read_sql_query(sql='SELECT a,c FROM sqltable', con=temp_sqlldb) # SQL QUERY
 print(sqldf3,'\n')
-
 
 # EXERCISES PANDAS IO - SQL
 ## 1. import neccessary libraries
@@ -747,11 +746,9 @@ itmap = {'Information Technology':'IT'}
 print('\nmerged[\'Sector\'].map(itmap)\n',merged['Sector'].replace(itmap))#,inplace=True)
 print('\nAdd a $ before the stock price',merged['Price'].apply(lambda x: f'${x}'))
 
-
 # MATPLOTLIB - plotting with Python https://matplotlib.org https://matplotlib.org/gallery.html
 # Ability to heavily customize a plot, 2 separate approaches to creating plots, functional and OOP
 # Two main goals - plot out a functional relationship - y=2x, also relationship bet two points x=[1,2,3], y=[2,4,6]
-
 
 # MATPLOTLIB - BASICS
 # Difference between displaying plots w/in a notebook vs running a script (need to add plt.show())
@@ -768,7 +765,6 @@ plt.title('Simple Plot')
 print('\nplt.plot(xnp,ynp)', plt.plot(xnp,ynp))
 plt.savefig('simpleplot.png') # SAVE FIGURE AS PNG FILE
 plt.show() # NEED THIS LINE IF RUNNING AS SCRIPT TO DISPLAY FIGURE
-
 
 # MATPLOTLIB UNDERSTANDING THE FIGURE OBJECT - add axes and then plot on those axes.
 # import numpy as np
@@ -803,7 +799,6 @@ xnparr = np.arange(0,10) # spaced out by 1
 print("\nxnparr = np.arange(0,10):", xnparr) 
 print("ynparr = 2*xnparr:", 2*xnparr) 
 
-
 # MATPLOTLIB - FIGURE PARAMETERS
 a = np.linspace(0,10,11) # 11 linearly spaced points between 0-10
 b = a**4
@@ -812,7 +807,6 @@ axesf2 = fig2.add_axes([0,0,1,1])
 axesf2.plot(a,b)
 fig2.savefig('Figure Parameters.png', bbox_inches='tight') # SAVE FIGURE AS PNG FILE
 plt.show()
-
 
 # MATPLOTLIB - SUBPLOTS FUNCTIONALITY
 # Matplotlib comes with a pre-confitgured fuc call plt.subplots()
@@ -845,7 +839,6 @@ plt.show()
 fig3.savefig('Subplots Functionality.png', bbox_inches='tight') # SAVE FIGURE AS PNG FILE
 # fig3.set_figwidth(10) # SOME ADDITIONAL OPTIONS OR figsize=(4,10),dpi=200)
 
-
 # MATPLOTLIB - LEGENDS 
 # Visual Styling, colors, editing lines, markers
 xfll = np.linspace(0,11,10)
@@ -856,7 +849,6 @@ ax.plot(xfll,xfll**2, label='xfill vs xfll^2')
 ax.legend(loc='lower right') # loc=0 is best location, can also do 'upper left' etc
 figl.savefig('Matplotlib Legends.png', bbox_inches='tight') # SAVE FIGURE AS
 plt.show()
-"""
 
 # MATPLOTLIB - COLOR & STYLES Google hex color picker
 # import numpy as np
@@ -877,46 +869,144 @@ plt.show()
 
 # MATHPLOTLIB - ADVANCED COMMANDS
 # LOGARITHMIC SCALE
-##fig, axeslog = plt.subplots(1, 2, figsize=(10,4))
-##axeslog[0].plot(x,x**2,x,np.exp(x))
-##axeslog[0].set_title('Normal Scale')
-##axeslog[1].plot(x,x**2,x,np.exp(x))
-##axeslog[1].set_yscale("log")
-##axeslog[1].set_title('Log Scale (y)')
+# Define the x variable for plotting
+x = np.linspace(0.1, 10, 100) # Example x values, adjust as needed
+# Create the figure and subplots
+fig, axeslog = plt.subplots(1, 2, figsize=(10,4))
+# Plot on the first subplot with normal scale
+axeslog[0].plot(x,x**2,x,np.exp(x),label='x^2')
+axeslog[0].set_title('Normal Scale')
+axeslog[0].legend() # Add legend to distinguish lines
+axeslog[1].plot(x,x**2,x,np.exp(x),label='exp(x)')
+axeslog[1].set_yscale("log")
+axeslog[1].set_title('Log Scale (y)')
+axeslog[1].legend() # Add legend to distinguish lines
+plt.show()
 
-# CUSTOMIZE PLACEMENT OF TICKES AND CUSTIM TICK LABELS
-##fig, axestick = plt.subplots(1, 2, figsize=(10,4))
-##axesticke.plot(x,x**2,x,x**3,lw=2)
-##axestick.set_xticks([1,2,3,4,5])
-##axestick.set_ticklabels([r'$\alpha$', r'$\beta$', r'$\gamma$', r'$\delta$', r'$\epsilon$'])
-##yticks = [0,50,100,150]
-##axestick.set_yticks(yticks)
-##axestick.set_yticklabels(['$%.1f$' % y for y in yticks], fontsize=18)
+# CUSTOMIZE PLACEMENT OF TICKS AND CUSTIM TICK LABELS
+x = np.linspace(0.1, 10, 100) # Example x values, adjust as needed
+fig, axestick = plt.subplots(figsize=(10,4))
+axestick.plot(x,x**2,x,x**3,lw=2)
+axestick.set_xticks([1,2,3,4,5])
+axestick.set_xticklabels([r'$\alpha$', r'$\beta$', r'$\gamma$', r'$\delta$', r'$\epsilon$'])
+yticks = [0,50,100,150]
+axestick.set_yticks(yticks)
+axestick.set_yticklabels(['$%.1f$' % y for y in yticks], fontsize=18)
+plt.show()
 
 # SCIENTIFIC NOTATION
-##from matplotlib import ticker
-##formatter = ticker.ScalarFormatter(useMathText=True)
-##formatter.set_scientific(True)
-##formatter.set_powerlimits((-1,1))
-##ax.yaxis.set_major_formatter(formatter)
+# from matplotlib import ticker
+x = np.linspace(.001, 5, 10) # Example x values, adjust as needed
+fig, axsn = plt.subplots(1,1)
+##axsn.plot(x, x**2, x, np.exp(x),) # It plots two separate lines on the same axes:
+lines = axsn.plot(x, x**2, x, np.exp(x),) # Plot both lines with one call and capture the artists
+axsn.set_title('Scientific Notation')
+axsn.set_yticks([0,50,100,150])
+##axsn.legend()
+axsn.legend(lines, ['$x^2$', 'e$^x$']) # Pass the captured lines and labels to the legend in a single line
+formatter = ticker.ScalarFormatter(useMathText=True)
+formatter.set_scientific(True)
+formatter.set_powerlimits((-1,1))
+axsn.yaxis.set_major_formatter(formatter)
+plt.show()  
 
-# AXIS NUMBER AND AXIS LABEL SPACING
-##matplotlib.rcParams['xtick.major.pad'] = 5
-##matplotlib.rcParams['ytick.major.pad'] = 5
-##fig, ax = plt.subplots(1,1)
-##ax.plot(x, x**2, x, np.exp(x))
-##ax.set_yticks([0,50,100,150])
-##ax.set_title('Label and axis spacing)
+
+# AXIS NUMBER AND AXIS LABEL SPACING ADJUSTMENTS
+x = np.linspace(0.1, 5, 100) # Example x values, adjust as needed
+plt.rcParams['xtick.major.pad'] = 5
+plt.rcParams['ytick.major.pad'] = 5
+fig, ax = plt.subplots(1,1)
+ax.plot(x, x**2, x, np.exp(x))
+ax.set_yticks([0,50,100,150])
+ax.set_title('Label and Axis spacing')
 ## Padding between axis label and axis numbers
-##ax.xaxis.labelpad = 5
-##ax.yaxis.labelpad = 5
-#ax.set_xlabel('x')
-#ax.set_ylabel('y')
+ax.xaxis.labelpad = 5
+ax.yaxis.labelpad = 5
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+plt.show()
+# Adjustments
+fig.subplots_adjust(left=0.15, right=.9, bottom=0.1, top=0.0) 
 # Restore defaults
 ##matplotlib.rcParams['xtick.major.pad'] = 3
 ##matplotlib.rcParams['ytick.major.pad'] = 3
 
 
+# AXIS GRID turn on/off and customize grid appearance http://www.matplotlib.org/gallery.html
+x = np.linspace(0.1, 5, 100)
+fig, axgrid = plt.subplots(1,2, figsize=(10,3))
+# Default Grid Appearance
+axgrid[0].plot(x, x**2, x, x**3, lw=2)
+axgrid[0].grid(True)
+axgrid[0].set_title('Default Grid')
+# Custom Grid Appearance
+axgrid[1].plot(x, x**2, x, x**3, lw=2)
+axgrid[1].grid(color='b', alpha=0.5, linestyle='dashed', linewidth=0.5)
+axgrid[1].set_title('Custom Grid')
+plt.show()
+## #Default Grid Appearance
+##axes[0].plot(x, x**2, x, x**3. lw=2)
+##axes[0].grid(True)
+
+
+## AXIS SPINES
+x = np.linspace(0.1, 5, 100)
+fig, axspines = plt.subplots(figsize=(6,2))
+axspines.spines['bottom'].set_color('blue')
+axspines.spines['top'].set_color('blue')
+axspines.spines['left'].set_color('red')
+axspines.spines['left'].set_linewidth(2)
+# Turn off right spine
+axspines.spines['right'].set_color('none')
+axspines.yaxis.tick_left() # Only ticks on the left side
+plt.show()
+
+
+## TWIN AXES
+x = np.linspace(0.1, 5, 100)
+fig, axtwin = plt.subplots()
+axtwin.plot(x, x**2, lw=2,color='blue')
+axtwin.set_ylabel(r'area $(m^2)$', color='blue', fontsize=18)
+for label in axtwin.get_yticklabels():
+    label.set_color('blue')
+axtwin2 = axtwin.twinx()
+axtwin2.plot(x, x**3, lw=2,color='red')
+axtwin2.set_ylabel(r'volume $(m^3)$', color='red', fontsize=18)
+for label in axtwin2.get_yticklabels():
+    label.set_color('red')
+plt.show()
+
+
+## AXES WHERE X AND Y IS ZERO
+xx = np.linspace(-0.75, 1., 100)
+fig, axxyzero = plt.subplots()
+axxyzero.spines['right'].set_color('none')
+axxyzero.spines['top'].set_color('none')
+axxyzero.xaxis.set_ticks_position('bottom')
+axxyzero.spines['bottom'].set_position(('data',0)) # Set position of x spine to x=0
+axxyzero.yaxis.set_ticks_position('left')
+axxyzero.spines['left'].set_position(('data',0)) # Set position of y spine to y=0
+xx = np.linspace(-0.75, 1., 100)
+axxyzero.plot(xx, xx**3)
+plt.show()
+
+
+# OTHER 2D PLOT STYLES
+xx = np.linspace(-0.75, 1., 100)
+n = np.array([0,1,2,3,4,5])
+fig, axes = plt.subplots(1,4, figsize=(12, 3))
+axes[0].scatter(xx, xx + 0.25*np.random.rand(len(xx)))
+axes[0].set_title('Scatter')
+axes[1].step(n, n**2, lw = 2)
+axes[1].set_title('Step')
+axes[2].bar(n, n**2, align='center', width=0.5, alpha=0.5)
+axes[2].set_title('Bar')
+axes[3].fill_between(xx, xx**2, xx**3, color='green', alpha=0.5)
+axes[3].set_title('fill_between')
+plt.show()
+"""
+
 
 # EXERCISES MATHPLOTLIB
 # 1. Create a figure and axis object using plt.subplots() with 1 row and
+# 2 columns. Plot the following data on each axis:
