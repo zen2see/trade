@@ -5,7 +5,9 @@ import timeit
 import os
 from sqlalchemy import create_engine # https://www.sqlalchemy.org/
 import matplotlib.pyplot as plt
-from matplotlib import ticker
+from matplotlib import gridspec, ticker
+from datetime import datetime
+import re
 
 """ 
 #### PYTHON BASICS #########################################################################################
@@ -1004,9 +1006,292 @@ axes[2].set_title('Bar')
 axes[3].fill_between(xx, xx**2, xx**3, color='green', alpha=0.5)
 axes[3].set_title('fill_between')
 plt.show()
-"""
 
 
-# EXERCISES MATHPLOTLIB
+# TEXT ANNOTATION
+xx = np.linspace(-0.75, 1., 100)
+fig, xt = plt.subplots()
+xt.plot(xx, xx**2, xx, xx**3)
+# set x and y limits
+xt.set_xlim(-0.8, 1.0)
+xt.set_ylim(-0.5, 1.0)
+xt.text(0.15, 0.2, r"$y=x^2$", fontsize=20, color="blue")
+xt.text(0.05, 0.1, r"$y=x^3$", fontsize=20, color="green")
+plt.show()
+
+
+# MULTIPLE SUBPLOTS AND INSETS
+# Axes can be added to a matplotlib Figure canvas manually using fig.add_axes
+# or using a sub-figure layout manager - subplots, subplot2grid or gridspec.
+xx = np.linspace(.1, 1.0, 5)
+fig, ax = plt.subplots(2, 3)
+# show x-axis from 0.0 to 1.0 with ticks every 0.2 on all subplots
+xticks = np.arange(0.0, 1.01, 0.2)
+for a in ax.flat:
+    a.set_xlim(0.0, 1.0)
+    a.set_xticks(xticks)
+fig.tight_layout()
+plt.show()
+
+
+# SUBPLOT2GRID
+xsp = np.linspace(0.0, 1.01, 5)
+fig = plt.figure()
+ax1 = plt.subplot2grid((3,3), (0,0), colspan=3)
+ax2 = plt.subplot2grid((3,3), (1,0), colspan=2)
+ax3 = plt.subplot2grid((3,3), (1,2), rowspan=2)
+ax4 = plt.subplot2grid((3,3), (2,0))
+ax5 = plt.subplot2grid((3,3), (2,1))
+fig.tight_layout()
+plt.show()
+
+
+# GRIDSPEC
+# from matplotlib import gridspec, ticker
+xsp = np.linspace(0.0, 1.01, 5)
+fig = plt.figure()
+gs = gridspec.GridSpec(2, 3, height_ratios=[2,1], width_ratios=[1, 2, 1])
+for g in gs:
+    ax = fig.add_subplot(g)
+fig.tight_layout()
+plt.show()
+
+
+# ADD AXES
+xax = np.linspace(0.0, 1.01, 5)
+fig, ax = plt.subplots()
+ax.plot(xax, xax**2, xax, xax**3)
+fig.tight_layout()
+# INSET
+inset_ax = fig.add_axes([0.2, 0.55, 0.35, 0.35]) # X,Y,Width,Height
+inset_ax.plot(xax, xax**2, xax, xax**3)
+inset_ax.set_title('zoom near origin')
+# SET AXIS RANGE
+inset_ax.set_xlim(-.2, .2)
+inset_ax.set_ylim(-.005, .01)
+# SET AXIS TICK LOCATIONS
+inset_ax.set_yticks([0, 0.005, 0.01])
+inset_ax.set_xticks([0-.1,0,.1])
+plt.show()
+
+
+# COLORMAPS AND CONTOUR FIGURES https://www.scipy.org/Cookbook/Matplotlib/Show_colormaps
+alpha = 0.7
+phi_ext = 2 * np.pi * 0.5
+def flux_qubit_potential(phi_m, phi_p):
+    return 2 + alpha - 2 *np.cos(phi_p) * np.cos(phi_m) - alpha * np.cos(phi_ext)
+phi_m = np.linspace(0, 2*np.pi, 100)
+phi_p = np.linspace(0, 2*np.pi, 100)
+X,Y = np.meshgrid(phi_p, phi_m)
+Z = flux_qubit_potential(X, Y).T
+fig, ax = plt.subplots()
+# use pcolormesh with shading='auto'; set symmetric vmin/vmax for 
+# #RdBu and add a colorbar
+vmax = np.abs(Z).max()
+p = ax.pcolor(X/(2*np.pi), Y/(2*np.pi), Z, cmap=plt.cm.RdBu, vmin=-vmax, vmax=vmax)#vmin=abs(Z))
+# p = ax.pcolormesh(X/(2*np.pi), Y/(2*np.pi), Z, cmap=plt.cm.RdBu, shading='auto',
+#                   vmin=-vmax, vmax=vmax)
+fig.colorbar(p, ax=ax)
+ax.set_xlabel(r'$\phi_p / 2\pi$')
+ax.set_ylabel(r'$\phi_m / 2\pi$')
+plt.show()
+
+
+# IMSHOW
+fig, ax = plt.subplots()
+vmax = np.abs(Z).max()
+im = ax.imshow(Z, cmap=plt.cm.RdBu, vmin=-vmax, vmax=vmax, \
+origin='lower', extent=(X.min()/(2*np.pi), X.max()/(2*np.pi), \
+                        Y.min()/(2*np.pi), Y.max()/(2*np.pi)),
+    interpolation='bilinear'
+)
+cb = fig.colorbar(im, ax=ax)
+ax.set_xlabel(r'$\phi_p / 2\pi$')
+ax.set_ylabel(r'$\phi_m / 2\pi$')
+plt.show()
+
+# CREATE A FIGURE
+fig = plt.figure()
+ax = fig.add_subplot()
+grams = np.arange(0, 11)
+
+print('\nxnp np.arange(0,10) = ',xnp)
+print('\nynp = 2*xnp',ynp)
+plt.xlabel('X axis')
+plt.ylabel('Y axis')
+###vmin=abs(Z).min(). vmax=abs(Z.max(),
+
+## EXERCISES 
+## TASK 1
+# 1. CREATING DATA FROM AN EQUATION
+# E = mc(squared) 
+# Create two arrays: E and m, m is simply 11 evenly spaced values representing
+# 0-10 grams. E should be the equivalent energy for the mass. Figure out what to
+# provide for c for the units m/s c= 3.00x10^8 186,000 miles per second or 299,792,458 meters p/s.
+# import numpy as np
+m = np.linspace(0,10,11)
+c = 3 * 10**8
+E = m*c**2
+print(E)
+
+# 2. PLOTTING E=MC^2
 # 1. Create a figure and axis object using plt.subplots() with 1 row and
 # 2 columns. Plot the following data on each axis:
+# import matplotlib.pyplot as plt
+plt.title('E = mc^2')
+plt.xlabel('M in grams')
+plt.ylabel('E in Joules')
+plt.plot(m,E,color='red',lw=5)
+plt.xlim(0,10)
+plt.show()
+# OR
+fig = plt.figure()
+ax = fig.add_axes([0,0,1,1])
+ax.plot(m,E,color='red',lw=5)
+#plt.yscale('log') # WAY TO DO BONUS BELOW
+#plot.grid(which='both',axis='y') # WAY TO DO BONUS BELOW
+plt.show()
+
+#3 BONUS Figure out how to plot this on a logarthimic scale on the y axis. Grid on ytikcksplt.title('E = mc^2')
+plt.title('E = mc^2')
+plt.xlabel('M in grams')
+plt.ylabel('E in Joules')
+plt.plot(m,E,color='red',lw=5)
+plt.xlim(0,10)
+plt.yscale('log')
+plt.grid
+plt.grid(which='both',axis='y')
+plt.show()
+
+## TASK 2
+# CREATING TWO PLOTS FROM DATA POINTS
+# In finance, the yield curve is a curve showing several yields to maturity or interest rates across
+# different contract lengths (2 months, 2 year, 20 year, etc...) for a similar debt contract.  The 
+# curve shows the relation between the (level of the) interest rate (or cost of borrowing) and time to
+# maturity, known as the "term", of the debt for a given borrower in a given currency.
+# The US dollar interest rates paid on US Treasury securities for various maturities are closely watched
+# by many traders, and are commonly plotted on a graph called "the yield cruve"
+# The data shows the interest paid for a US Treasury bond for a certain contract lengtrh. 
+# The lable lists shows the corresponding contract length per index position.
+# Run the cell below to create the lists for plotting.
+# Plot both curves on the same Figure. Add a legend to show which curve corresponds to a certain year.
+labels = ['1 Mo', '3 Mo', '6 Mo', '1 Yr', '2 Yr', '3 Yr', '5 Yr', '7 Yr', '10 Yr', '20 Yr', '30 Yr']
+july16_2007 = [4.75,4.98,5.08,5.01,4.89,4.89,4.95,4.99,5.05,5.21,5.14]
+july16_2020 = [0.12,0.11,0.13,0.14,0.16,0.17,0.28,0.46,0.62,1.09,1.31]
+fig = plt.figure()
+axes = fig.add_axes([0,0,1,1])
+axes.plot(labels,july16_2007,label='july16_2007')
+axes.plot(labels,july16_2020,label='july16_2020')
+axes.legend() # or plt.legend() MOVE IT OUTSIDE PLOT axes.legend(loc=(1.04,0.5)) 
+plt.show()
+# USE SUBPLOTS TO SHWO EACH YEAR'S YIELD CURVE
+fig,axes = plt.subplots(nrows=2,ncols=1,figsize=(12,8))
+axes[0].plot(labels,july16_2007,label='july16_2007')
+axes[0].set_title('july16_2007')
+axes[1].plot(labels,july16_2020,label='july16_2020')
+axes[1].set_title('july16_2020')
+plt.show()
+
+## TASK 3
+# Recreate the plot below that uses twin axes.
+labels = ['1 Mo', '3 Mo', '6 Mo', '1 Yr', '2 Yr', '3 Yr', '5 Yr', '7 Yr', '10 Yr', '20 Yr', '30 Yr']
+july16_2007 = [4.75,4.98,5.08,5.01,4.89,4.89,4.95,4.99,5.05,5.21,5.14]
+july16_2020 = [0.12,0.11,0.13,0.14,0.16,0.17,0.28,0.46,0.62,1.09,1.31]
+fig, ax1 = plt.subplots() # sublots(figsize=(6,2))
+ax1.spines['left'].set_color('blue')
+ax1.spines['left'].set_linewidth(4)
+ax1.spines['right'].set_color('red')
+ax1.spines['right'].set_linewidth(2)
+ax1.plot(labels,july16_2007, lw=2, color='blue')
+ax1.set_ylabel('July 16 2007', fontsize=18, color='blue')
+for label in ax1.get_yticklabels():
+    label.set_color('blue')
+ax2 = ax1.twinx()
+ax2.plot(labels,july16_2020, lw=2, color='red')
+ax2.set_ylabel('July 16 2020', fontsize=18, color='red') 
+for label in ax2.get_yticklabels():
+    label.set_color('red')
+plt.show()
+
+
+# PANDAS AND FINANCE
+# Core Pandas time Methods, Visualizations, Time Series, Rolling Statistics
+# Time shifts and Row calculations, Data Sources
+# CORE PANDAS TIME METHODS
+# Allow us to extract info from the timestamp, such as: DOW WE vs WD AM vs PM
+# from datetime import datetime
+# import pandas as pd
+# import numpy as np
+myyear = 2025
+mymonth = 1
+myday = 1
+myhour = 2
+mymin = 30
+mysec = 15
+mydate = datetime(myyear, mymonth, myday)
+print(mydate)
+mydatetime = datetime(myyear, mymonth, myday, myhour, mymin, mysec)
+print(mydatetime)
+print(mydatetime.year)
+
+
+#myser_dt = pd.Series(['Nov 3, 1990', '2000-01-01', None], format="ISO8601", utc=True)
+myser = pd.Series(['Nov 3, 1990','2000-01-01',None])
+print("pd.Series([\'Nov 3, 1990\', \'2000-01-01\',None], print(myser):")
+print(myser)
+# print('\ntimeseries = pd.to_datetime(myser,format=\'mixed)')
+# Robust parsing: let pandas infer mixed formats, be tolerant to failures, and set UTC
+print("\ntimeseries = pd.to_datetime(myser, errors='coerce', utc=True, infer_datetime_format=True)")
+# timeseries = pd.to_datetime(myser, format='mixed')
+timeseries = pd.to_datetime(myser, errors='coerce', utc=True, infer_datetime_format=True)
+print(timeseries)
+# Fallback: if any values are NaT, try a second pass with an explicit common format
+mask = timeseries.isna() & myser.notna()
+if mask.any():
+    print("\nFallback parsing for entries that failed inference:")
+    fallback = pd.to_datetime(myser[mask], format='%b %d, %Y', errors='coerce', utc=True)
+    timeseries.loc[mask] = fallback
+    print(timeseries)
+print('\ntimeseries[0].year =', timeseries[0].year)
+print('\nobvi_euro_date = \'31-12-2000\'')
+obvi_euro_date='31-12-2000'
+# Example of European-style date parsing — specify dayfirst to avoid warnings
+print('pd.to_datetime(obvi_euro_date, dayfirst=True):')
+print(pd.to_datetime(obvi_euro_date, dayfirst=True))
+# https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
+print('\nstyle_date = \'12--Dec--2000\''), 
+style_date = '12--Dec--2000'
+print("pd.to_datetime(style_date,format=\'%d--%b--%Y:")
+print(pd.to_datetime(style_date,format='%d--%b--%Y'))
+custom_date = '12th of Dec 2000'
+print('\ncustom_date = \'12th of Dec 2000\', pd.to_datetime(custom_date):')
+print(pd.to_datetime(custom_date),'\n')
+"""
+# READ FROM CSV
+sales_path = 'PWQuantConnect/03-Core-Pandas/RetailSales_BeerWineLiquor.csv'
+try:
+    sales = pd.read_csv(sales_path)
+except FileNotFoundError:
+    print(f"Error: The file '{sales_path}' was not found.")
+except Exception as e:
+     print(f"An error occurred: {e}")
+print(sales.head(),'\n')
+print('sales[\'DATE\'] = pd.to_datetime(sales["DATE"])')
+sales['DATE'] = pd.to_datetime(sales["DATE"])
+print('sales[\'DATE\'][0].year:',sales['DATE'][0].year)
+print('\nsales = pd.read_csv(sales_path, parse_dates=[0])')
+sales = pd.read_csv(sales_path, parse_dates=[0])
+print('sales[\'DATE\']:')
+print(sales['DATE'])
+print("\nsales = sales.set_index(\'DATE\'), sales=")
+sales = sales.set_index('DATE')
+print(sales)
+print('\nsales.resample(rule=\'YE\').mean() =')
+ruleYE = sales.resample(rule='YE').mean()
+print(ruleYE)
+print('\nsales = pd.read_csv(sales_path, parse_dates=[0])')
+sales = pd.read_csv(sales_path, parse_dates=[0])
+print('sales.head() and info():\n', sales.head())
+sales.info()
+print('\nsales[\'DATE\'].dt.year:')
+print(sales['DATE'].dt.year) # coulddo dt.year, etc
