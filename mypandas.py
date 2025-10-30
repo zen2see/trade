@@ -347,7 +347,7 @@ print('sales_q1.add(sales_q2,fill_value=0), aligns by index, add fill value if v
 , sales_q1.add(sales_q2,fill_value=0),)
 print('sales_q1.dtype', sales_q1.dtype)
 
-#### DATAFRAME #############################################################################################
+#### DATAFRAME 
 # DATAFRAME a table of columns and rows in pandas that we can restructure and filter, group of Pandas Series 
 # objects that share the same index
 # import numpy as np
@@ -564,7 +564,6 @@ print('\nLARGEST TIPS = dfsort.nlargest(2,\'tip\')\n',dfsort.nlargest(2,'tip'))
 
 # GRAB BY ORDER
 print('\nSORT VALUES TIP = dfsort.sort_values(\'tip\',ascending=True).iloc[0:2])\n',dfsort.sort_values('tip',ascending=True).iloc[0:2])
-
 # RANDOM SAMPLES
 print('\nSAMPLE FIVE RANDOM ROWS =  dfsort.sample(5)\n', dfsort.sample(5))
 
@@ -674,7 +673,6 @@ print(world_top_ten)
 # df1 = excelsheetdic['Sheet1']
 # dfl.to_excel('example.xlsx', sheet_name='Sheet1')
 
-
 # PANDAS IO - SQL
 # import pandas as pd 
 # from sqlalchemy import create_engine # https://www.sqlalchemy.org/ pip3 install sqlalchemy
@@ -748,7 +746,9 @@ itmap = {'Information Technology':'IT'}
 print('\nmerged[\'Sector\'].map(itmap)\n',merged['Sector'].replace(itmap))#,inplace=True)
 print('\nAdd a $ before the stock price',merged['Price'].apply(lambda x: f'${x}'))
 
-# MATPLOTLIB - plotting with Python https://matplotlib.org https://matplotlib.org/gallery.html
+
+# MATPLOTLIB - ################################################################################################# 
+# plotting with Python https://matplotlib.org https://matplotlib.org/gallery.html
 # Ability to heavily customize a plot, 2 separate approaches to creating plots, functional and OOP
 # Two main goals - plot out a functional relationship - y=2x, also relationship bet two points x=[1,2,3], y=[2,4,6]
 
@@ -799,7 +799,7 @@ axes2.set_title('ZOOMED IN 1 TO 2')
 plt.show()
 xnparr = np.arange(0,10) # spaced out by 1
 print("\nxnparr = np.arange(0,10):", xnparr) 
-print("ynparr = 2*xnparr:", 2*xnparr) 
+pri
 
 # MATPLOTLIB - FIGURE PARAMETERS
 a = np.linspace(0,10,11) # 11 linearly spaced points between 0-10
@@ -885,7 +885,7 @@ axeslog[1].set_title('Log Scale (y)')
 axeslog[1].legend() # Add legend to distinguish lines
 plt.show()
 
-# CUSTOMIZE PLACEMENT OF TICKS AND CUSTIM TICK LABELS
+# MATHPLOTLIB - ADVANCED COMMANDS CUSTOMIZE PLACEMENT OF TICKS AND CUSTIM TICK LABELS
 x = np.linspace(0.1, 10, 100) # Example x values, adjust as needed
 fig, axestick = plt.subplots(figsize=(10,4))
 axestick.plot(x,x**2,x,x**3,lw=2)
@@ -896,7 +896,7 @@ axestick.set_yticks(yticks)
 axestick.set_yticklabels(['$%.1f$' % y for y in yticks], fontsize=18)
 plt.show()
 
-# SCIENTIFIC NOTATION
+# MATHPLOTLIB - ADVANCED COMMANDS SCIENTIFIC NOTATION
 # from matplotlib import ticker
 x = np.linspace(.001, 5, 10) # Example x values, adjust as needed
 fig, axsn = plt.subplots(1,1)
@@ -912,8 +912,7 @@ formatter.set_powerlimits((-1,1))
 axsn.yaxis.set_major_formatter(formatter)
 plt.show()  
 
-
-# AXIS NUMBER AND AXIS LABEL SPACING ADJUSTMENTS
+# MATHPLOTLIB - ADVANCED COMMANDS AXIS NUMBER AND AXIS LABEL SPACING ADJUSTMENTS
 x = np.linspace(0.1, 5, 100) # Example x values, adjust as needed
 plt.rcParams['xtick.major.pad'] = 5
 plt.rcParams['ytick.major.pad'] = 5
@@ -933,8 +932,8 @@ fig.subplots_adjust(left=0.15, right=.9, bottom=0.1, top=0.0)
 ##matplotlib.rcParams['xtick.major.pad'] = 3
 ##matplotlib.rcParams['ytick.major.pad'] = 3
 
-
-# AXIS GRID turn on/off and customize grid appearance http://www.matplotlib.org/gallery.html
+# MATHPLOTLIB - ADVANCED COMMANDS AXIS GRID turn on/off and customize grid appearance 
+# http://www.matplotlib.org/gallery.html
 x = np.linspace(0.1, 5, 100)
 fig, axgrid = plt.subplots(1,2, figsize=(10,3))
 # Default Grid Appearance
@@ -950,8 +949,7 @@ plt.show()
 ##axes[0].plot(x, x**2, x, x**3. lw=2)
 ##axes[0].grid(True)
 
-
-## AXIS SPINES
+## MATHPLOTLIB - ADVANCED COMMANDS AXIS SPINES
 x = np.linspace(0.1, 5, 100)
 fig, axspines = plt.subplots(figsize=(6,2))
 axspines.spines['bottom'].set_color('blue')
@@ -963,8 +961,7 @@ axspines.spines['right'].set_color('none')
 axspines.yaxis.tick_left() # Only ticks on the left side
 plt.show()
 
-
-## TWIN AXES
+## MATHPLOTLIB - ADVANCED COMMANDS TWIN AXES
 x = np.linspace(0.1, 5, 100)
 fig, axtwin = plt.subplots()
 axtwin.plot(x, x**2, lw=2,color='blue')
@@ -978,8 +975,7 @@ for label in axtwin2.get_yticklabels():
     label.set_color('red')
 plt.show()
 
-
-## AXES WHERE X AND Y IS ZERO
+## MATHPLOTLIB - ADVANCED COMMANDS AXES WHERE X AND Y IS ZERO
 xx = np.linspace(-0.75, 1., 100)
 fig, axxyzero = plt.subplots()
 axxyzero.spines['right'].set_color('none')
@@ -992,8 +988,7 @@ xx = np.linspace(-0.75, 1., 100)
 axxyzero.plot(xx, xx**3)
 plt.show()
 
-
-# OTHER 2D PLOT STYLES
+# MATHPLOTLIB - ADVANCED COMMANDS OTHER 2D PLOT STYLES
 xx = np.linspace(-0.75, 1., 100)
 n = np.array([0,1,2,3,4,5])
 fig, axes = plt.subplots(1,4, figsize=(12, 3))
@@ -1007,8 +1002,7 @@ axes[3].fill_between(xx, xx**2, xx**3, color='green', alpha=0.5)
 axes[3].set_title('fill_between')
 plt.show()
 
-
-# TEXT ANNOTATION
+# MATHPLOTLIB - ADVANCED COMMANDS TEXT ANNOTATION
 xx = np.linspace(-0.75, 1., 100)
 fig, xt = plt.subplots()
 xt.plot(xx, xx**2, xx, xx**3)
@@ -1019,8 +1013,7 @@ xt.text(0.15, 0.2, r"$y=x^2$", fontsize=20, color="blue")
 xt.text(0.05, 0.1, r"$y=x^3$", fontsize=20, color="green")
 plt.show()
 
-
-# MULTIPLE SUBPLOTS AND INSETS
+# MATHPLOTLIB - ADVANCED COMMANDS MULTIPLE SUBPLOTS AND INSETS
 # Axes can be added to a matplotlib Figure canvas manually using fig.add_axes
 # or using a sub-figure layout manager - subplots, subplot2grid or gridspec.
 xx = np.linspace(.1, 1.0, 5)
@@ -1033,8 +1026,7 @@ for a in ax.flat:
 fig.tight_layout()
 plt.show()
 
-
-# SUBPLOT2GRID
+# MATHPLOTLIB - ADVANCED COMMANDS SUBPLOT2GRID
 xsp = np.linspace(0.0, 1.01, 5)
 fig = plt.figure()
 ax1 = plt.subplot2grid((3,3), (0,0), colspan=3)
@@ -1045,8 +1037,7 @@ ax5 = plt.subplot2grid((3,3), (2,1))
 fig.tight_layout()
 plt.show()
 
-
-# GRIDSPEC
+# MATHPLOTLIB - ADVANCED COMMANDS GRIDSPEC
 # from matplotlib import gridspec, ticker
 xsp = np.linspace(0.0, 1.01, 5)
 fig = plt.figure()
@@ -1056,8 +1047,7 @@ for g in gs:
 fig.tight_layout()
 plt.show()
 
-
-# ADD AXES
+# MATHPLOTLIB - ADVANCED COMMANDS ADD AXES
 xax = np.linspace(0.0, 1.01, 5)
 fig, ax = plt.subplots()
 ax.plot(xax, xax**2, xax, xax**3)
@@ -1074,8 +1064,7 @@ inset_ax.set_yticks([0, 0.005, 0.01])
 inset_ax.set_xticks([0-.1,0,.1])
 plt.show()
 
-
-# COLORMAPS AND CONTOUR FIGURES https://www.scipy.org/Cookbook/Matplotlib/Show_colormaps
+# MATHPLOTLIB - ADVANCED COMMANDS  COLORMAPS AND CONTOUR FIGURES https://www.scipy.org/Cookbook/Matplotlib/Show_colormaps
 alpha = 0.7
 phi_ext = 2 * np.pi * 0.5
 def flux_qubit_potential(phi_m, phi_p):
@@ -1096,8 +1085,7 @@ ax.set_xlabel(r'$\phi_p / 2\pi$')
 ax.set_ylabel(r'$\phi_m / 2\pi$')
 plt.show()
 
-
-# IMSHOW
+# MATHPLOTLIB - ADVANCED COMMANDS IMSHOW
 fig, ax = plt.subplots()
 vmax = np.abs(Z).max()
 im = ax.imshow(Z, cmap=plt.cm.RdBu, vmin=-vmax, vmax=vmax, \
@@ -1110,18 +1098,17 @@ ax.set_xlabel(r'$\phi_p / 2\pi$')
 ax.set_ylabel(r'$\phi_m / 2\pi$')
 plt.show()
 
-# CREATE A FIGURE
+# MATHPLOTLIB - ADVANCED COMMANDS CREATE A FIGURE
 fig = plt.figure()
 ax = fig.add_subplot()
 grams = np.arange(0, 11)
-
 print('\nxnp np.arange(0,10) = ',xnp)
 print('\nynp = 2*xnp',ynp)
 plt.xlabel('X axis')
 plt.ylabel('Y axis')
 ###vmin=abs(Z).min(). vmax=abs(Z.max(),
 
-## EXERCISES 
+## MATHPLOTLIB - EXERCISES 
 ## TASK 1
 # 1. CREATING DATA FROM AN EQUATION
 # E = mc(squared) 
@@ -1214,9 +1201,10 @@ for label in ax2.get_yticklabels():
 plt.show()
 
 
-# PANDAS AND FINANCE
+# PANDAS AND FINANCE ##############################################################
 # Core Pandas time Methods, Visualizations, Time Series, Rolling Statistics
 # Time shifts and Row calculations, Data Sources
+
 # CORE PANDAS TIME METHODS
 # Allow us to extract info from the timestamp, such as: DOW WE vs WD AM vs PM
 # from datetime import datetime
@@ -1233,7 +1221,6 @@ print(mydate)
 mydatetime = datetime(myyear, mymonth, myday, myhour, mymin, mysec)
 print(mydatetime)
 print(mydatetime.year)
-
 
 #myser_dt = pd.Series(['Nov 3, 1990', '2000-01-01', None], format="ISO8601", utc=True)
 myser = pd.Series(['Nov 3, 1990','2000-01-01',None])
@@ -1266,7 +1253,7 @@ print(pd.to_datetime(style_date,format='%d--%b--%Y'))
 custom_date = '12th of Dec 2000'
 print('\ncustom_date = \'12th of Dec 2000\', pd.to_datetime(custom_date):')
 print(pd.to_datetime(custom_date),'\n')
-"""
+
 # READ FROM CSV
 sales_path = 'PWQuantConnect/03-Core-Pandas/RetailSales_BeerWineLiquor.csv'
 try:
@@ -1295,3 +1282,65 @@ print('sales.head() and info():\n', sales.head())
 sales.info()
 print('\nsales[\'DATE\'].dt.year:')
 print(sales['DATE'].dt.year) # coulddo dt.year, etc
+
+# PANDAS VISUALIZATIONS
+# import matplotlib.pyplot as plt
+# import numpy as np
+# import pandas as pd
+# READ FROM CSV
+fb_path = 'PWQuantConnect/DATA/FB.csv'
+try:
+    fb = pd.read_csv(fb_path)
+except FileNotFoundError:
+    print(f"Error: The file '{fb_path} was not found.")
+except Exception as e:
+    print(f"An error occured: {e}")
+# print(fb,'\n')
+fb.plot()
+plt.show()
+fb[['Adj Close','High']].plot()
+plt.show()
+fb[['Adj Close','High']].plot(kind='box')
+plt.show()
+fb['Volume'].plot(kind='hist',bins=100)
+plt.show()
+fb['Volume'].plot(kind='kde',c='red')
+plt.show()
+plt.figure(figsize=(10,3),dpi=150)
+fb['Volume'].plot(kind='line',c='red')
+plt.show()
+new_fb_path = 'PWQuantConnect/DATA/TGT.csv'
+try:
+    new_fb = pd.read_csv(new_fb_path)
+except FileNotFoundError:
+    print(f"Error: The file '{new_fb_path} was not found.")
+except Exception as e:
+    print(f"An error occured: {e}")
+new_fb['Adj Close'].plot(label='TGT')
+fb['Adj Close'].plot(label='FB')
+plt.legend(loc=(0.4,1))
+plt.show()
+# MAKE ON THE SAME GRAPH
+ax = new_fb['Adj Close'].plot(label='TGT')
+fb[['Adj Close','High']].plot(ax=ax)
+plt.legend()
+plt.show()
+fig,ax = plt.subplots(dpi=75)
+new_fb['Adj Close'].plot(ax=ax,ls='--',color='red',lw=3)
+fb[['Adj Close','High']].plot(ax=ax)
+plt.xlabel('PLT LABEL')
+plt.savefig('TGT plots.png')
+plt.show()
+"""
+
+# VISUALIZING TIME SERIES DATA WITH PANDAS - PART 1
+# import pandas as pd
+# import matplotlib.pyplot as plt
+cost_path = 'PWQuantConnect/DATA/COST.csv'
+try:
+    cost_fb = pd.read_csv(cost_path,index_col='Date')
+except FileNotFoundError:
+    print(f"Error: The file '{cost_path} was not found.")
+except Exception as e:
+    print(f"An error occured: {e}")
+print(cost_fb,'\n')
