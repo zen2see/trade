@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from matplotlib import gridspec, ticker
 from datetime import datetime
 import re
+from matplotlib import dates
 
 """ 
 #### PYTHON BASICS #########################################################################################
@@ -1331,7 +1332,7 @@ fb[['Adj Close','High']].plot(ax=ax)
 plt.xlabel('PLT LABEL')
 plt.savefig('TGT plots.png')
 plt.show()
-"""
+
 
 # VISUALIZING TIME SERIES DATA WITH PANDAS - PART 1
 # import pandas as pd
@@ -1343,4 +1344,37 @@ except FileNotFoundError:
     print(f"Error: The file '{cost_path} was not found.")
 except Exception as e:
     print(f"An error occured: {e}")
-print(cost_fb,'\n')
+print('cost_fb = pd.read_csv(cost_path,index_col=\'Date\')\n',cost_fb,'\n')
+print('cost_fb.index:\n',cost_fb.index)
+cost_fb = pd.read_csv(cost_path,index_col='Date',parse_dates=True)
+print('\ncost_fb.index_col=\'Date\',parse_dates=True:\n',cost_fb)
+print('\nAdd index keyword = cost_fb.index:\n',cost_fb.index)
+print('\ncost_fb.plot\nplt.show():\n')
+cost_fb.plot()
+plt.show()
+print('Only plot the Adj Close = cost_fb[\'Adj Close\'].plot()):')
+cost_fb['Adj Close'].plot()
+plt.show()
+#print('cost_fb[\'Adj Close\'][\'2018-01-01\']:',cost_fb['Adj Close']['2018-01-01'])
+print('cost_fb[\'Adj Close\'][\'2018-01-01\':\'2020-01-01\'].plot():')
+print(cost_fb['Adj Close']['2018-01-01':'2020-01-01'].plot())
+plt.show()
+print('OR')
+print('cost_fb[\'Adj Close\'].plot(xlim=[\'2018-01-01\', \'2020-01-01\'])\n')
+print(cost_fb['Adj Close'].plot(xlim=['2018-01-01', '2020-01-01'],ylim=[150,290]))
+plt.show()
+"""
+
+
+# SHOW TICKS - locator and formatter
+# from matplotlib import dates
+cost_path = 'PWQuantConnect/DATA/COST.csv'
+cost_fb = pd.read_csv(cost_path,index_col='Date',parse_dates=True)
+plt.figure(dpi=200)
+print('aticks = cost_fb[\'Close\'][\'2018-01-01\':\'208-03-01\'].plot():')
+atickes = cost_fb['Close']['2018-01-01':'2018-03-01'].plot()
+print('\naticks.xaxis.set_major_locator(dates.WeekdayLocator())') # Can specify Weekday
+atickes.xaxis.set_major_locator(dates.WeekdayLocator()) # Can be MonthlyLocator
+plt.show()
+
+
