@@ -1363,18 +1363,44 @@ print('OR')
 print('cost_fb[\'Adj Close\'].plot(xlim=[\'2018-01-01\', \'2020-01-01\'])\n')
 print(cost_fb['Adj Close'].plot(xlim=['2018-01-01', '2020-01-01'],ylim=[150,290]))
 plt.show()
-"""
 
-
-# SHOW TICKS - locator and formatter
+# SHOW TICKS - locator (Set location of ticks) and formatter (Dates have ++choices)
 # from matplotlib import dates
 cost_path = 'PWQuantConnect/DATA/COST.csv'
 cost_fb = pd.read_csv(cost_path,index_col='Date',parse_dates=True)
-plt.figure(dpi=200)
-print('aticks = cost_fb[\'Close\'][\'2018-01-01\':\'208-03-01\'].plot():')
-atickes = cost_fb['Close']['2018-01-01':'2018-03-01'].plot()
+plt.figure(dpi=100)
+# LOCATOR
+print('aticks = cost_fb[\'Close\'][\'2018-01-01\':\'2018-03-01\'].plot():')
+aticks = cost_fb['Close']['2018-01-01':'2018-03-01'].plot()
 print('\naticks.xaxis.set_major_locator(dates.WeekdayLocator())') # Can specify Weekday
-atickes.xaxis.set_major_locator(dates.WeekdayLocator()) # Can be MonthlyLocator
+aticks.xaxis.set_major_locator(dates.WeekdayLocator()) # Can be MonthlyLocator, etc.
+aticks.xaxis.set_major_locator(dates.YearLocator())
+aticks.xaxis.set_major_locator(dates.MonthLocator())
 plt.show()
+# FORMATTER
+aticks.xaxis.set_major_formatter(dates.DateFormatter('%Y-%B'))
+plt.show()
+"""
 
-
+# VISUALIZING TIME SERIES DATA WITH PANDAS - PART 2
+cost_path = 'PWQuantConnect/DATA/COST.csv'
+try:
+    cost_vd = pd.read_csv(cost_path,index_col='Date',parse_dates=True)
+except FileNotFoundError:
+    print(f"Error: The file '{cost_path} was not found.")
+except Exception as e:
+    print(f"An error occured: {e}")
+print('vtsd = cost_vd[\'Close\'][\'2018-01-01\':\'2020-01-01\'].plot():')
+vtsd = cost_vd['Close']['2018-01-01':'2020-01-01']
+print('\nplt.figure(figsize=(8,4),dpi=100)',plt.figure(figsize=(9,6),dpi=60))
+print('\nvts = vtsd[\'Close\'][\'2018-01-01\':\'2020-01-01\'].plot()\n')
+atx = cost_vd['Close']['2018-01-01':'2020-01-01'].plot()
+atx.xaxis.set_major_locator(dates.YearLocator())
+atx.xaxis.set_major_formatter(dates.DateFormatter('%Y,   %B'))
+atx.xaxis.set_minor_locator(dates.MonthLocator())
+atx.xaxis.set_minor_formatter(dates.DateFormatter('%B'))
+atx.tick_params(axis='x',which='minor',rotation=90)
+atx.tick_params(axis='x',which='major',rotation=90)
+atx.yaxis.grid(True)
+plt.xticks(ha='center')
+plt.show()
