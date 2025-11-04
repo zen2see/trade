@@ -1380,7 +1380,7 @@ plt.show()
 # FORMATTER
 aticks.xaxis.set_major_formatter(dates.DateFormatter('%Y-%B'))
 plt.show()
-"""
+
 
 # VISUALIZING TIME SERIES DATA WITH PANDAS - PART 2
 cost_path = 'PWQuantConnect/DATA/COST.csv'
@@ -1404,3 +1404,32 @@ atx.tick_params(axis='x',which='major',rotation=90)
 atx.yaxis.grid(True)
 plt.xticks(ha='center')
 plt.show()
+"""
+
+# PANDAS - ROLLING STATISTICS
+# Allow us toget info over a 'window' of time, the window moves along
+# with thedataset, allowing us to see a moving or 'rolling' statistic
+# import  pandas as pd
+cost_wmtpath = 'PWQuantConnect/DATA/WMT.csv'
+try:
+    cost_vd = pd.read_csv(cost_wmtpath,index_col='Date',parse_dates=True)
+except FileNotFoundError:
+    print(f"Error: The file '{cost_wmtpath} was not found.")
+except Exception as e:
+    print(f"An error occured: {e}")
+plt.figure(figsize=(10,3),dpi=100)
+cost_vd['Adj Close'].plot()
+plt.show()
+# Rolling average with a 7-day window = 3 (Days)
+plt.figure(figsize=(10,3),dpi=100)
+print('cost_vd[\'Adj Close\'].rolling(window=3).mean().plot()\n')
+cost_vd['Adj Close'].rolling(window=3).mean().plot()
+plt.show()
+# Now a larger set
+plt.figure(figsize=(10,3),dpi=100)
+print('cost_vd[\'Adj Close\'].rolling(window=200).mean().plot()\n')
+cost_vd['Adj Close'].plot(label='Adj Close')
+cost_vd['Adj Close'].rolling(window=200).mean().plot(label='200 MA')
+plt.legend()
+plt.show()
+
