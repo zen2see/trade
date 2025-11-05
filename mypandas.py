@@ -1404,7 +1404,7 @@ atx.tick_params(axis='x',which='major',rotation=90)
 atx.yaxis.grid(True)
 plt.xticks(ha='center')
 plt.show()
-"""
+
 
 # PANDAS - ROLLING STATISTICS
 # Allow us toget info over a 'window' of time, the window moves along
@@ -1432,4 +1432,47 @@ cost_vd['Adj Close'].plot(label='Adj Close')
 cost_vd['Adj Close'].rolling(window=200).mean().plot(label='200 MA')
 plt.legend()
 plt.show()
+plt.figure(figsize=(10,3),dpi=100)
+print('cost_vd[\'Adj Close\'].plot(labels=\'Adj Close\')')
+cost_vd['Adj Close'].plot(label='Adj Close')
+print('cost_vd[\'Adj Close\'].rolling(window=14).std().plot(label=\'14 std\')')
+cost_vd['Adj Close'].rolling(window=14).std().plot(label='14 std')
+plt.legend()
+plt.show()
+print('cost_vd[\'Adj Close\'].rolling(window=3).std().plot(label=\'14 std\')')
+cost_vd['Adj Close'].rolling(window=3).std().plot(label='14 std')
+plt.legend()
+plt.show()
 
+
+
+# PANDAS TIME SHIFTING AND ROW CALCULATIONS
+cost_wmt2path = 'PWQuantConnect/DATA/WMT.csv'
+try:
+    cost_rowcalc = pd.read_csv(cost_wmt2path,index_col='Date',parse_dates=True)
+except FileNotFoundError:
+    print(f"Error: The file '{cost_wmt2path} was not found.")
+except Exception as e:
+    print(f"An error occured: {e}")
+plt.figure(figsize=(10,3),dpi=100)
+print('\ncost_rowcalc.head()',cost_rowcalc.head())
+# SHIFTING BY FORWARD OR BACK ONE DAY
+print('\ncost_rowcalc.shift(1).head()',cost_rowcalc.shift(1).head())
+print('\ncost_rowcalc.shift().tail()',cost_rowcalc.shift().tail())
+print('\ncost_rowcalc.shift(-1).tail()',cost_rowcalc.shift(-1).tail())
+print('\ncost_rowcalc.shift(1).head()',cost_rowcalc.shift(-1).head())
+print('\ncost_rowcalc.shift(periods=1,freq=\'ME\')',cost_rowcalc.shift(periods=1,freq='ME'))
+# WHAT IS THE DIFFERENCE, FROM THE PREVIOUS DAY
+print('\ncost_rowcalc[\'Adj Close\'].diff(1)\n',cost_rowcalc['Adj Close'].diff(1))
+# WHAT IS THE DIFFERENCE, (in percent terms) FROM THE PREVIOUS DAY
+print('\ncost_rowcalc[\'Adj Close\'].pct_change(1)\n',cost_rowcalc['Adj Close'].pct_change(1))
+# ABILITY TO PERFORM CUMALIVE SUMS FOR PRODUCTS
+print('\ncumalitive_sum_series = pd.Series([1,2,3,4])')
+cumalitive_sum_series = pd.Series([1,2,3,4])
+print(cumalitive_sum_series)
+print(f'\ncumalitive_sum_series.cumsum().\n{cumalitive_sum_series.cumsum()}')
+print(f'\ncumalitive_sum_series.cumprod().\n{cumalitive_sum_series.cumprod()}')
+"""
+
+
+# PANDAS PYTHON API BASED DATA SOURCES
