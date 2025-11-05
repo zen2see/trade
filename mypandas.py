@@ -9,6 +9,9 @@ from matplotlib import gridspec, ticker
 from datetime import datetime
 import re
 from matplotlib import dates
+# import pandas_datareader.data as web
+from pandas_datareader import data as pdr
+import yfinance as yf
 
 """ 
 #### PYTHON BASICS #########################################################################################
@@ -1476,3 +1479,30 @@ print(f'\ncumalitive_sum_series.cumprod().\n{cumalitive_sum_series.cumprod()}')
 
 
 # PANDAS PYTHON API BASED DATA SOURCES
+# pip install pandas-datareader (Ext on pandas to connect with APIs across websites)
+# pip install yfinance (additional functionality than pandas-datareader) CHECK FOR UPDATES
+# import pandas_datareader.data as web https://pandas-datareader.readthedocs.io
+# import yfinance as yf
+# from pandas_datareader import data as pdr
+
+# print('aapl_df = web.DataReader(\'AAPL\',\'yahoo\',start=\'2023-01-01\', end=\'2024-01-01\'')
+# AAPL THIS WAY DIDN'T WORK
+#aapl_df = web.DataReader('AMD','yahoo',start='2023-01-01', end='2024-01-01')
+
+# MAKE PANDAS-DATAREADER USE YFINANCE UNDER THE HOOD
+print('\nge_df = web.DataReader() USING yf.download(\'GE\', start=\'2019-09-10\', end=\'2019-10-09\', auto_adjust=True):')
+ge_df = yf.download('GE', start='2019-09-10', end='2019-10-09', auto_adjust=True)
+print(ge_df.head())
+print('\naapl_df = web.DataReader() USING yf.download(\'AAPL\',\'yahoo\',start=\'2023-01-01\', end=\'2024-01-01\':')
+aapl_df = yf.download('AMD',start='2023-01-01', end='2024-01-01', auto_adjust=True)
+print(aapl_df.head())
+# USING FEDERAL RESERVE DATASET
+print('\ninflation_df = pdr.DataReader(\'T10YIE\', \'fred\', start=\'2004-01-01\',end=\'2020-01-01\, auto_adjust=True\')')
+inflation_df = pdr.DataReader('T10YIE', 'fred', start='2004-01-01',end='2020-01-01')
+print('inflation_df\n',inflation_df)
+print('\ninflation_df.plot())',inflation_df.plot())
+plt.show()
+# GETTING OTHER DETAILS
+print('\n\apple_ticker = yf.Ticker(\'AAPL\')')
+apple_ticker = yf.Ticker('AAPL')
+print('apple_ticker.get_balance_sheet()',apple_ticker.get_balance_sheet())
