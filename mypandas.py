@@ -5,10 +5,10 @@ import timeit
 import os
 from sqlalchemy import create_engine # https://www.sqlalchemy.org/
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 from matplotlib import gridspec, ticker
 from datetime import datetime
 import re
-from matplotlib import dates
 # import pandas_datareader.data as web
 from pandas_datareader import data as pdr
 import yfinance as yf
@@ -1475,7 +1475,6 @@ cumalitive_sum_series = pd.Series([1,2,3,4])
 print(cumalitive_sum_series)
 print(f'\ncumalitive_sum_series.cumsum().\n{cumalitive_sum_series.cumsum()}')
 print(f'\ncumalitive_sum_series.cumprod().\n{cumalitive_sum_series.cumprod()}')
-"""
 
 
 # PANDAS PYTHON API BASED DATA SOURCES
@@ -1488,6 +1487,7 @@ print(f'\ncumalitive_sum_series.cumprod().\n{cumalitive_sum_series.cumprod()}')
 # print('aapl_df = web.DataReader(\'AAPL\',\'yahoo\',start=\'2023-01-01\', end=\'2024-01-01\'')
 # AAPL THIS WAY DIDN'T WORK
 #aapl_df = web.DataReader('AMD','yahoo',start='2023-01-01', end='2024-01-01')
+
 
 # MAKE PANDAS-DATAREADER USE YFINANCE UNDER THE HOOD
 print('\nge_df = web.DataReader() USING yf.download(\'GE\', start=\'2019-09-10\', end=\'2019-10-09\', auto_adjust=True):')
@@ -1506,3 +1506,67 @@ plt.show()
 print('\n\apple_ticker = yf.Ticker(\'AAPL\')')
 apple_ticker = yf.Ticker('AAPL')
 print('apple_ticker.get_balance_sheet()',apple_ticker.get_balance_sheet())
+"""
+
+# PANDAS AND FINANCE EXERCISE
+# TASK 1 Import neccessary files 
+# GIVEN DATASET SP500 https://finance.yahoo.com/quote/SPY
+# import numpy as np
+# import pandas as pd
+# import matplotlib.pyplot as plt
+# import yfinance as yf
+# from matplotlib import dates
+# TASK 2 Grab the SPY historical data from Jan-1-2000 to Jan-1-2021
+print('\nPANDAS AND FINANCES EXERCISE')
+print('1. IMPORT NECCESSARY FILES')
+finex = 'PWQuantConnect/05-Pandas-and-Finance/SPY2000_2021.csv'
+try:
+    finex = pd.read_csv(finex,index_col='Date',parse_dates=True)
+except FileNotFoundError:
+    print(f"Error: The file '{finex} was not found.")
+except Exception as e:
+    print(f"An error occured: {e}")
+print('2. Grab the SPY historical data from Jan-1-2000 to Jan-1-2021 FROM YAHOO FINANCE')
+print('finex = yf.download(\'SPY\', start=\'2000-01-01\', end=\'2021-01-01\', auto_adjust=False)')
+finex = yf.download('SPY', start='2000-01-01', end='2021-01-01', auto_adjust=False)
+print(finex)
+# TASK 3 Check the head of the ten first entires in the dataset
+print('\n3. Check the head of the ten first entires in the dataset')
+print('finex.head(10)')
+print(finex.head(10))
+# TAKS 4 Check the datatype of all entires
+print('\n4. Check the datatype of all entires')
+print('finex.dtypes')
+print(finex.dtypes) # also finex.info()
+# TASK 5 Plot the Adj Closing price of the SP500, with the price on the y axis
+# and the year on the x axis. Use Locator() and Formatter() so you can see a tick 
+# for every year in the dataset(only showing the year numb er, not the full YYYY-MM-DD)
+# Choose a resonable fig size, Set the dpi to 300 and save as sp500.png
+# from matplotlib import dates
+print('\n5. Plot the Adj Closing price of the SP500, with the price on the y axis\n\
+and the year on the x axis. Use Locator() and Formatter() so you can see a tick\n\
+for every year in the dataset (only showing the year number, not the full YYYY-MM-DD)\n\
+Choose a reasonable fig size, Set the dpi to 300 and save as sp500.png\n')
+# from matplotlib import dates 
+# Create the figure and axes with specified size and dpi print('plt.figure(figsize=(10,4),dpi=100')
+#plt.figure(figsize=(20,4),dpi=200)
+fig, ax = plt.subplots(figsize=(10,6), dpi=100)
+#print('ax = finex[\'Adj Close\'].plot()')
+#ax = finex['Adj Close'].plot()
+print('ax.plot(finex.index, finex[\'Adj Close\'], label=\'SPY Adj Close\')')
+ax.plot(finex.index, finex['Adj Close'], label='SPY Adj Close')
+print('ax.xaxis.set_major_locator(dates.YearLocator()):')
+ax.xaxis.set_major_locator(mdates.YearLocator())
+print('ax.xaxis.set_major_formatter(dates.DateFormatter(\'%Y\')):')
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+print('\nOptionally, format minor ticks or rotate labels for better readability,\nplt.xticks(rotation=45, ha=\'right\'')
+plt.xticks(rotation=45, ha='right')
+print('\nAdd labels and title if needed,plt.xlabel(\'Year\'),plt.ylabel(\'Adjusted Close Price\',plt.title(...\'')
+plt.xlabel('Year')
+plt.ylabel('Adjusted Close Price')
+plt.title('S&P 500 Adjusted Close Over Time')
+print('\nSave Plot = plt.savefig(\'AdjClosePriceSP500.png\')') # SAVE BEFORE plt.show()
+plt.savefig('AdjClosePriceSP500.png')
+plt.show()
+
+
