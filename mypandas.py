@@ -1568,5 +1568,38 @@ plt.title('S&P 500 Adjusted Close Over Time')
 print('\nSave Plot = plt.savefig(\'AdjClosePriceSP500.png\')') # SAVE BEFORE plt.show()
 plt.savefig('AdjClosePriceSP500.png')
 plt.show()
-
-
+# TASK 6 Create a histogram of the daily volume of shares of SPY traded. Choose a reasonable bin size.
+print('Create a histogram of the daily volume of shares of SPY traded. Choose a reasonable bin size.')
+print('\nfinex[\'Volume\'].plot(kind=\'hist\')',finex['Volume'].plot(kind='hist'))
+print('\nplt.show()', plt.show())
+# Choose a reasonable bin size
+print('\nfinex[\'Volume\'].hist(bins=50) OR finex[\'Volume\'].plot(kind=\'hist\',bins=50)')
+finex['Volume'].plot(kind='hist',bins=50)
+plt.show()
+# TASK 7 Explore the crash and recovery of 2020/Covid pandemic. Create a line plot of the Adj. Close price
+# from 1-1-2020 to 1-1-2021. The xaxis ticks should be formatted by YYYY-MM
+print('ax = finex[\'Adj Close\'][\'2020-01-01\':\'2021-01-01\'].plot()')
+ax = finex['Adj Close']['2020-01-01':'2021-01-01'].plot()
+print('ax.xaxis.set_major_locator(mdates.MonthLocator()):')
+ax.xaxis.set_major_locator(mdates.MonthLocator())
+plt.show()
+# TASK 8 Create a plot which shows the adj closing price of SPY for the entire length of the time series along
+# with an added trend line of the corresponding 200 days rolling mean of the adj. close price. Add a legend
+# Create one figure/axes and plot both series on it
+fig, ax = plt.subplots(figsize=(12,5), dpi=100)
+print('\nfinex[\'Adj Close\'].plot(ax=ax, label=\'Adj Close\')')
+print('finex[\'Adj Close\'].rolling(200).mean().plot(label=\'200 day MA\')')
+finex['Adj Close'].plot(ax=ax) #, label='Adj Close')
+finex['Adj Close'].rolling(200).mean().plot(ax=ax) #, label='200 day MA')
+# Fix labels using the axes' Line2D objects (last two lines)
+lines = ax.get_lines()
+lines[-2].set_label('Adj Close')
+lines[-1].set_label('200-day MA')
+# Now draw a single, correct legend
+ax.legend()
+ax.set_title('SPY Adj Close with 200-day MA')
+ax.set_xlabel('Date')
+ax.set_ylabel('Price')
+fig.tight_layout()
+#plt.legend()
+plt.show()
