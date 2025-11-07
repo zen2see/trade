@@ -21,7 +21,6 @@ import yfinance as yf
 # MULTIPLE ROW COMMENTS
 """
 
-"""
 # MATH
 ## 1+1=2, 1-3=-2, 1*3=6, 1/2=0.5, 2**4=16, 4%2=0, 5%2=1, 2+3*5+5=22, (2+3)*(5+5)=50
 
@@ -30,7 +29,7 @@ import yfinance as yf
 
 # STRINGS
 ## 'single', "double", "I don't care"
-
+"""
 # PRINT
 x = "hello"
 print(x)
@@ -109,11 +108,10 @@ out = [1, 4, 9, 16]
 # FUNCTIONS
 def my_func():
     print('hello')
-def my_func2(param='default'):
-    # triple quotes
+def my_func2(param='default'): 
     #Docstring goes here between triple quotes! 
-    # triple quotes
-my_func(param)
+    
+my_func()
 # python3 my_func() # would print doc info and then the word default    
 def my_func3(argument):
     return argument*5 
@@ -347,8 +345,8 @@ print(sales_q2,'\n')
 print('Sales q1 Japan:', sales_q1['Japan'])
 print('Sales.q1.keys()', sales_q1.keys()) # Index(['Japan', 'China', ' India', 'USA'], dtype='object')
 print('Sales.q1 * 2, can do +,/\n', sales_q1 * 2)
-print('sales_q1.add(sales_q2,fill_value=0), aligns by index, add fill value if values don\'t match up\n'/
-, sales_q1.add(sales_q2,fill_value=0),)
+print('sales_q1.add(sales_q2,fill_value=0), aligns by index, add fill value if values don\'t match up')
+sales_q1.add(sales_q2,fill_value=0)
 print('sales_q1.dtype', sales_q1.dtype)
 
 #### DATAFRAME 
@@ -419,13 +417,10 @@ print('SLICE DATA\ndfcvs.iloc[0:4]\n')
 # COULD DO dfcvs.loc[\'Sun2959\']: OR dfcvs.loc[['Sun2959','Sun5260']] FOR MULTIPLE ROWS
 print('REMOVING ROWS,dfcvs.drop(\'Sun2959\', axis=0)') # axis=0 is rows, axis=1 is columns
 print('PERMANENTLY DROP First 3 WOULD BE, dfcvs = dfcvs.iloc[3:3]') # DROP FIRST 3 ROWS AND KEEP REST)
-print('ADDING A ROW = SAY WE ADD A ROW one_row = dfcvs.iloc[0], dfcvs.append(one_row), /
-PERMANENT = dfcvs = dfcvs.append(one_row)')
+print('ADDING A ROW = SAY WE ADD A ROW one_row = dfcvs.iloc[0], dfcvs.append(one_row), PERMANENT = dfcvs = dfcvs.append(one_row)')
 a_row = dfcvs.iloc[0]
 print('added',a_row)
-"""
 
-"""
 # TYPICALLY IN DATA ANALYSIS OUR DATASETS ARE LARGE ENOUGH WE DON'T FILTER BASED ON POSITION, USE CONDITION
 # CONDITIONAL FILTERING ALLOWS US TO SELECT ROWS BASED A CONDITION ON A COLUMN
 
@@ -441,9 +436,10 @@ print('\ndf2[df2["Population"] > 50]:\n',df2[df2['Population'] > 50],) # RETURNS
 # FILTERING WITH (MULTIPLE) CONDITIONS
 dftips = pd.read_csv('tips.csv')
 print('\nREAD HEAD OF TIPS DataFrame\n', dftips.head())
-print('\nFILTER TIPS SERIES WHERE TOTAL BILL > 50\n', dftips[dftips['total_bill'] > 50])
-print('\nFILTER TIPS SERIES WHERE TOTAL BILL > 22 AND DAY IS FRI\n', /
- dftips[(dftips['total_bill'] > 22) & (dftips['day'] == 'Fri')])
+print('\nFILTER TIPS SERIES WHERE TOTAL BILL > 50\n')
+dftips[dftips['total_bill'] > 50]
+print('\nFILTER TIPS SERIES WHERE TOTAL BILL > 22 AND DAY IS FRI\n')
+dftips[(dftips['total_bill'] > 22) & (dftips['day'] == 'Fri')]
 # print(dftips.columns)
 options = ['Sat', 'Sun']
 dftips['day'].isin(options) # Will print 0   True...
@@ -452,8 +448,7 @@ dftips['day'].isin(options) # Will print 0   True...
 print('\nUSEFUL METHODS:\napply()\n')
 print('EX. 1 dftips.head()\n',dftips.head())
 print('GRAB LAST 4 DIGIST OF CC#\n',dftips['CC Number'].apply(lambda x: str(x)[-4:]),'\n')
-print('CREATE A CUSTOM FUNCTION GRAB LAST FOUR and apply it to a /
-column\ndef grab_last_four(num):\n return str(num)[-4:]\n')
+print('CREATE A CUSTOM FUNCTION GRAB LAST FOUR and apply it to a column\ndef grab_last_four(num):\n return str(num)[-4:]\n')
 print('def grab_last_four(num):')
 print('    return str(num)[-4:]\n') 
 def grab_last_four(num):
@@ -475,8 +470,8 @@ print(dftips.head())
 print('APPLY MULTIPLE FUNCTIONS ON MULTIPLE COLUMNS')
 print('EXAMPLE LAMBDA FUNCTION, SUPPOSE WE HAD\n def simple(num):\n return num * 2\n')
 print('LAMBDA FUNCTION WOULD BE\n lambda num: num *2')
-print('dftips[\'TOTAL_BILL,tip\'].apply(lambda num: num * 2)\n', /
-dftips[['total_bill','tip']].apply(lambda num: num * 2),'\n')
+print('dftips[\'TOTAL_BILL,tip\'].apply(lambda num: num * 2)\n')
+dftips[['total_bill','tip']].apply(lambda num: num * 2)
 def Quality(total_bill,tip):
     if tip / total_bill >= 0.25:
         return 'Generous'
@@ -484,24 +479,21 @@ def Quality(total_bill,tip):
         return 'Average'
     else:
         return 'Cheap'
-print('dftips[[\'total_bill\', \'tip\']]/
-.apply(lambda dftips: Quality(dftips[\'total_bill\'], dftips[\'tip\']), axis=1)\n')
-dftips['Quality']=dftips[['total_bill', 'tip']]/
-.apply(lambda dftips: Quality(dftips['total_bill'], dftips['tip']), axis=1)
+print('dftips[[\'total_bill\', \'tip\']].apply(lambda dftips: Quality(dftips[\'total_bill\'], dftips[\'tip\']), axis=1)\n')
+dftips['Quality']=dftips[['total_bill', 'tip']].apply(lambda dftips: Quality(dftips['total_bill'], dftips['tip']), axis=1)
 print(dftips['Quality'])
-print('\nHAVE IT RUN FASTER WITH VECTORIZE - df[\'Quality\'] = /
-np.vectorize(Quality)(dftips[\'total_bill\'], dftips[\'tip\'])')
+print('\nHAVE IT RUN FASTER WITH VECTORIZE - df[\'Quality\'] = np.vectorize(Quality)(dftips[\'total_bill\'], dftips[\'tip\'])')
 
 # NP VECTORIZE TRANSFORMS FUNTION THAT ARE NOT NUMPY AWARE 
 dftips['Quality'] = np.vectorize(Quality)(dftips['total_bill'], dftips['tip'])
 print(dftips.head())
 # dftips['Quality'] = dftips['total_bill', 'tip'].apply(Quality)
+"""
 
 # TIMELY CODE STARTS HERE AFTER ADDING TRIPLE QUOTES
 # TIMING CODE WITH TIMEIT - NOTE TRIPLE QUOTES BELOW ARE NEEDED FOR TIMELY CODE TO WORK/
 # SO PLACE 3 QUOTES BEFORE THIS LINE
 # TIMELY CODE TO BE EXECUTED ONCE FOR TIMELY
-"""
 pdtimely = '''
 import numpy as np
 import pandas as pd
@@ -628,12 +620,12 @@ mergedR = pd.merge(left=registrations,right=logins,how='right',on='name')
 print(mergedR)
 
 # PANDAS IO - CVS
-# import pandas as pd
-# import os
-# os.getcwd()
-# dfsomecvs = pd.read_csv('example.csv', header=None) # Sets A B C D as a row entry 0 a b c d
-# dfsomecvs = pd.read_csv('example.csv', index_col=0) # Sets a as index
-# dfsinecvs.to_csv('somefilename_or_filepath_+filename, index=false)
+import pandas as pd
+import os
+os.getcwd()
+dfsomecvs = pd.read_csv('example.csv', header=None) # Sets A B C D as a row entry 0 a b c d
+dfsomecvs = pd.read_csv('example.csv', index_col=0) # Sets a as index
+#dfsomecvs.to_csv('somefilename_or_filepath_+filename, index=false)
 
 # PANDAS IO - HTML (pip install lxml) (can also copy source file)
 # import pandas as pd
@@ -803,7 +795,7 @@ axes2.set_title('ZOOMED IN 1 TO 2')
 plt.show()
 xnparr = np.arange(0,10) # spaced out by 1
 print("\nxnparr = np.arange(0,10):", xnparr) 
-pri
+
 
 # MATPLOTLIB - FIGURE PARAMETERS
 a = np.linspace(0,10,11) # 11 linearly spaced points between 0-10
@@ -931,7 +923,7 @@ ax.set_xlabel('x')
 ax.set_ylabel('y')
 plt.show()
 # Adjustments
-fig.subplots_adjust(left=0.15, right=.9, bottom=0.1, top=0.0) 
+fig.subplots_adjust(left=0.15, right=.9, bottom=0.1, top=0.2) 
 # Restore defaults
 ##matplotlib.rcParams['xtick.major.pad'] = 3
 ##matplotlib.rcParams['ytick.major.pad'] = 3
@@ -1112,7 +1104,7 @@ plt.xlabel('X axis')
 plt.ylabel('Y axis')
 ###vmin=abs(Z).min(). vmax=abs(Z.max(),
 
-## MATHPLOTLIB - EXERCISES 
+## MATHPLOTLIB - EXERCISES ########################################################################
 ## TASK 1
 # 1. CREATING DATA FROM AN EQUATION
 # E = mc(squared) 
@@ -1376,12 +1368,12 @@ plt.figure(dpi=100)
 print('aticks = cost_fb[\'Close\'][\'2018-01-01\':\'2018-03-01\'].plot():')
 aticks = cost_fb['Close']['2018-01-01':'2018-03-01'].plot()
 print('\naticks.xaxis.set_major_locator(dates.WeekdayLocator())') # Can specify Weekday
-aticks.xaxis.set_major_locator(dates.WeekdayLocator()) # Can be MonthlyLocator, etc.
-aticks.xaxis.set_major_locator(dates.YearLocator())
-aticks.xaxis.set_major_locator(dates.MonthLocator())
+aticks.xaxis.set_major_locator(mdates.WeekdayLocator()) # Can be MonthlyLocator, etc.
+aticks.xaxis.set_major_locator(mdates.YearLocator())
+aticks.xaxis.set_major_locator(mdates.MonthLocator())
 plt.show()
 # FORMATTER
-aticks.xaxis.set_major_formatter(dates.DateFormatter('%Y-%B'))
+aticks.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%B'))
 plt.show()
 
 
@@ -1398,10 +1390,10 @@ vtsd = cost_vd['Close']['2018-01-01':'2020-01-01']
 print('\nplt.figure(figsize=(8,4),dpi=100)',plt.figure(figsize=(9,6),dpi=60))
 print('\nvts = vtsd[\'Close\'][\'2018-01-01\':\'2020-01-01\'].plot()\n')
 atx = cost_vd['Close']['2018-01-01':'2020-01-01'].plot()
-atx.xaxis.set_major_locator(dates.YearLocator())
-atx.xaxis.set_major_formatter(dates.DateFormatter('%Y,   %B'))
-atx.xaxis.set_minor_locator(dates.MonthLocator())
-atx.xaxis.set_minor_formatter(dates.DateFormatter('%B'))
+atx.xaxis.set_major_locator(mdates.YearLocator())
+atx.xaxis.set_major_formatter(mdates.DateFormatter('%Y,   %B'))
+atx.xaxis.set_minor_locator(mdates.MonthLocator())
+atx.xaxis.set_minor_formatter(mdates.DateFormatter('%B'))
 atx.tick_params(axis='x',which='minor',rotation=90)
 atx.tick_params(axis='x',which='major',rotation=90)
 atx.yaxis.grid(True)
@@ -1510,15 +1502,17 @@ print('apple_ticker.get_balance_sheet()',apple_ticker.get_balance_sheet())
 
 # PANDAS AND FINANCE EXERCISE
 # TASK 1 Import neccessary files 
+print(' GIVEN DATASET SP500 https://finance.yahoo.com/quote/SPY')
 # GIVEN DATASET SP500 https://finance.yahoo.com/quote/SPY
 # import numpy as np
 # import pandas as pd
 # import matplotlib.pyplot as plt
 # import yfinance as yf
 # from matplotlib import dates
+
 # TASK 2 Grab the SPY historical data from Jan-1-2000 to Jan-1-2021
 print('\nPANDAS AND FINANCES EXERCISE')
-print('1. IMPORT NECCESSARY FILES')
+print('TASK 1. IMPORT NECCESSARY FILES')
 finex = 'PWQuantConnect/05-Pandas-and-Finance/SPY2000_2021.csv'
 try:
     finex = pd.read_csv(finex,index_col='Date',parse_dates=True)
@@ -1526,31 +1520,34 @@ except FileNotFoundError:
     print(f"Error: The file '{finex} was not found.")
 except Exception as e:
     print(f"An error occured: {e}")
-print('2. Grab the SPY historical data from Jan-1-2000 to Jan-1-2021 FROM YAHOO FINANCE')
+print('TASK 2. Grab the SPY historical data from Jan-1-2000 to Jan-1-2021 FROM YAHOO FINANCE')
 print('finex = yf.download(\'SPY\', start=\'2000-01-01\', end=\'2021-01-01\', auto_adjust=False)')
 finex = yf.download('SPY', start='2000-01-01', end='2021-01-01', auto_adjust=False)
 print(finex)
+
 # TASK 3 Check the head of the ten first entires in the dataset
-print('\n3. Check the head of the ten first entires in the dataset')
-print('finex.head(10)')
-print(finex.head(10))
-# TAKS 4 Check the datatype of all entires
-print('\n4. Check the datatype of all entires')
-print('finex.dtypes')
-print(finex.dtypes) # also finex.info()
+print('\nTASK 3. Check the head of the ten first entires in the dataset')
+print('finex.head(10):')
+finex.head(10)
+
+# TASK 4 Check the datatype of all entires
+print('\nTASK 4. Check the datatype of all entires')
+print('finex.dtypes:')
+finex.dtypes # also finex.info()
+
 # TASK 5 Plot the Adj Closing price of the SP500, with the price on the y axis
 # and the year on the x axis. Use Locator() and Formatter() so you can see a tick 
 # for every year in the dataset(only showing the year numb er, not the full YYYY-MM-DD)
 # Choose a resonable fig size, Set the dpi to 300 and save as sp500.png
 # from matplotlib import dates
-print('\n5. Plot the Adj Closing price of the SP500, with the price on the y axis\n\
+print('\nTASK 5. Plot the Adj Closing price of the SP500, with the price on the y axis\n\
 and the year on the x axis. Use Locator() and Formatter() so you can see a tick\n\
 for every year in the dataset (only showing the year number, not the full YYYY-MM-DD)\n\
-Choose a reasonable fig size, Set the dpi to 300 and save as sp500.png\n')
+Choose a reasonable fig size, Set the dpi to 300 and save as sp500.png')
 # from matplotlib import dates 
 # Create the figure and axes with specified size and dpi print('plt.figure(figsize=(10,4),dpi=100')
 #plt.figure(figsize=(20,4),dpi=200)
-fig, ax = plt.subplots(figsize=(10,6), dpi=100)
+fig, ax = plt.subplots(figsize=(10,6), dpi=75)
 #print('ax = finex[\'Adj Close\'].plot()')
 #ax = finex['Adj Close'].plot()
 print('ax.plot(finex.index, finex[\'Adj Close\'], label=\'SPY Adj Close\')')
@@ -1559,35 +1556,42 @@ print('ax.xaxis.set_major_locator(dates.YearLocator()):')
 ax.xaxis.set_major_locator(mdates.YearLocator())
 print('ax.xaxis.set_major_formatter(dates.DateFormatter(\'%Y\')):')
 ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
-print('\nOptionally, format minor ticks or rotate labels for better readability,\nplt.xticks(rotation=45, ha=\'right\'')
+print('Optionally, format minor ticks or rotate labels for better readability,\nplt.xticks(rotation=45, ha=\'right\'')
 plt.xticks(rotation=45, ha='right')
-print('\nAdd labels and title if needed,plt.xlabel(\'Year\'),plt.ylabel(\'Adjusted Close Price\',plt.title(...\'')
+print('Add labels and title if needed,plt.xlabel(\'Year\'),plt.ylabel(\'Adjusted Close Price\',plt.title(...\'')
 plt.xlabel('Year')
 plt.ylabel('Adjusted Close Price')
 plt.title('S&P 500 Adjusted Close Over Time')
-print('\nSave Plot = plt.savefig(\'AdjClosePriceSP500.png\')') # SAVE BEFORE plt.show()
+print('Save Plot = plt.savefig(\'AdjClosePriceSP500.png\')') # SAVE BEFORE plt.show()
 plt.savefig('AdjClosePriceSP500.png')
 plt.show()
-# TASK 6 Create a histogram of the daily volume of shares of SPY traded. Choose a reasonable bin size.
-print('Create a histogram of the daily volume of shares of SPY traded. Choose a reasonable bin size.')
-print('\nfinex[\'Volume\'].plot(kind=\'hist\')',finex['Volume'].plot(kind='hist'))
-print('\nplt.show()', plt.show())
+
+# TASK 6. Create a histogram of the daily volume of shares of SPY traded. Choose a reasonable bin size.
+print('\nTASK 6 Create a histogram of the daily volume of shares of SPY traded. Choose a reasonable bin size.')
+print('finex[\'Volume\'].plot(kind=\'hist\')',finex['Volume'].plot(kind='hist'))
+plt.show()
 # Choose a reasonable bin size
-print('\nfinex[\'Volume\'].hist(bins=50) OR finex[\'Volume\'].plot(kind=\'hist\',bins=50)')
+print('finex[\'Volume\'].hist(bins=50) OR finex[\'Volume\'].plot(kind=\'hist\',bins=50)')
 finex['Volume'].plot(kind='hist',bins=50)
 plt.show()
-# TASK 7 Explore the crash and recovery of 2020/Covid pandemic. Create a line plot of the Adj. Close price
-# from 1-1-2020 to 1-1-2021. The xaxis ticks should be formatted by YYYY-MM
+
+# TASK 7. Explore the crash and recovery of 2020/Covid pandemic. Create a line plot of the Adj. Close price
+print('\nTASK 7 Explore the crash and recovery of 2020/Covid pandemic. Create a line plot of the Adj. Close price')
+print('from 1-1-2020 to 1-1-2021. The xaxis ticks should be formatted by YYYY-MM')
 print('ax = finex[\'Adj Close\'][\'2020-01-01\':\'2021-01-01\'].plot()')
 ax = finex['Adj Close']['2020-01-01':'2021-01-01'].plot()
 print('ax.xaxis.set_major_locator(mdates.MonthLocator()):')
 ax.xaxis.set_major_locator(mdates.MonthLocator())
 plt.show()
-# TASK 8 Create a plot which shows the adj closing price of SPY for the entire length of the time series along
+
+# TASK 8. Create a plot which shows the adj closing price of SPY for the entire length of the time series along
 # with an added trend line of the corresponding 200 days rolling mean of the adj. close price. Add a legend
 # Create one figure/axes and plot both series on it
-fig, ax = plt.subplots(figsize=(12,5), dpi=100)
-print('\nfinex[\'Adj Close\'].plot(ax=ax, label=\'Adj Close\')')
+print('\nTASK 8 Create a plot which shows the adj closing price of SPY for the entire length of the time series along')
+print('with an added trend line of the corresponding 200 days rolling mean of the adj. close price. Add a legend')
+print('Create one figure/axes and plot both series on it')
+fig, ax = plt.subplots(figsize=(12,5), dpi=50)
+print('finex[\'Adj Close\'].plot(ax=ax, label=\'Adj Close\')')
 print('finex[\'Adj Close\'].rolling(200).mean().plot(label=\'200 day MA\')')
 finex['Adj Close'].plot(ax=ax) #, label='Adj Close')
 finex['Adj Close'].rolling(200).mean().plot(ax=ax) #, label='200 day MA')
@@ -1601,5 +1605,49 @@ ax.set_title('SPY Adj Close with 200-day MA')
 ax.set_xlabel('Date')
 ax.set_ylabel('Price')
 fig.tight_layout()
-#plt.legend()
 plt.show()
+
+# TASK 9. If you bought one share at the start of the time series on Jan 1st 2000,
+# how much money would you have gained (in Adj. Close Dollar amount) by Jan 1st 2021?
+print('\nTASK 9: If you bought one share at the start of the time series on Jan 1st 2000\n',
+    'how much money would you have gained (in Adj. Close Dollar amount) by Jan 1st 2021?',sep="")
+print('finex[\'Adj Close\'].iloc[-1] - finex[\'Adj Close\'].iloc[0]:')
+print(finex['Adj Close'].iloc[-1] - finex['Adj Close'].iloc[0])
+print()
+
+# TASKS 10. What was the percent increase in value (based on Adj. Close price)
+# from Jan 1st, 2000 to Jan 1st 2021?
+print('TASKS 10 What was the percent increase in value (based on Adj. Close price),\n'
+       'from Jan 1st, 2000 to Jan 1st 2021?',sep='')
+print('end_price = finex[\'Adj Close\'].iloc[-1]')
+end_price = finex['Adj Close'].iloc[-1]
+print('start_price = finex[\'Adj Close\'].iloc[0]')
+start_price = finex['Adj Close'].iloc[0]
+print('100*(end_price - start_price)/start_price')
+percent_increase = 100*(end_price -start_price)/start_price
+print(percent_increase)
+
+# TASKS 11 Return the 10 dates with the largest gain for the SPY.
+print('\nTASK 11 Return the 10 dates with the largest gain for the SPY.' )
+print('finex[\'Adj Close\'].pct_change(1).sort_values(ascending=False)')
+pct_change_series = finex['Adj Close'].pct_change(1)
+# debug type if needed
+print('pct_change_series type:', type(pct_change_series))
+# If it's a Series use nlargest; if DataFrame sort by first column
+if isinstance(pct_change_series, pd.Series):
+    print('\nTop 10 single-day pct gains (dates and pct):')
+    print(pct_change_series.nlargest(10))
+else:
+    col = pct_change_series.columns[0]
+    print(f'Top 10 single-day pct gains (DataFrame column {col}):')
+    print(pct_change_series.sort_values(by=col, ascending=False).head(10))
+
+# TASK 12 What were the 10 dates with the highest daily percent change from the previous day (either gain OR decrease).
+print('\nTASK 12 What were the 10 dates with the highest daily percent change from the previous day (either gain OR decrease).?')
+print('finex[\'Adj Close\'].pct_change(1).abs().sort_values(by=col, ascending=False).head(10)')
+print(finex['Adj Close'].pct_change(1).abs().sort_values(by=col, ascending=False).head(10))
+
+
+# TASK 13 For each year in the dataset, find the Maximum Adj. Close price that SPU reached for that year.
+print('\nTASK 13 For each year in the dataset, find the Maximum Adj. Close price that SPU reached for that year.')
+
